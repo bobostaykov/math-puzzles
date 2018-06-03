@@ -1,7 +1,20 @@
 <resources>
     <string name="app_name">Math!Puzzles</string>
-    <string name="button1">Button1</string>
     <string name="button2">Button2</string>
     <string name="button3">Button3</string>
     <string name="new_game">New Game</string>
+
+    <string name="title_activity_new_game">NewGame</string>
+    <string name="choose_level_label">Choose level</string>
+    <string name="board_size_label">Board Size</string>
+    <string name="easy_button">Easy</string>
+    <string name="time_label">Time</string>
+    <string name="medium_button">Medium</string>
+    <string name="math_problems_label">Math problems</string>
+    <string name="hard_button">Hard</string>
+    <string name="start_button">Start</string>
+
+    <string name="title_activity_test">test</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
 </resources>
