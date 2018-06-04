@@ -26,6 +26,7 @@
             android:layout_height="66dp"
             android:layout_marginBottom="50dp"
             android:layout_marginTop="100dp"
+            android:onClick="switchToNewGameActivity"
             android:text="@string/new_game"
             app:layout_column="0"
             app:layout_gravity="center"
