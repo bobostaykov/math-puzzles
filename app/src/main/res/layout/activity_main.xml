@@ -14,41 +14,90 @@
     <!-- This FrameLayout insets its children based on system windows using
          android:fitsSystemWindows. -->
 
-    <android.support.v7.widget.GridLayout
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        app:columnCount="1"
-        app:rowCount="5">
+        android:orientation="vertical">
 
-        <Button
-            android:id="@+id/new_game"
-            android:layout_width="206dp"
-            android:layout_height="66dp"
-            android:layout_marginBottom="50dp"
-            android:layout_marginTop="100dp"
-            android:onClick="switchToNewGameActivity"
-            android:text="@string/new_game"
-            app:layout_column="0"
-            app:layout_gravity="center"
-            app:layout_row="1" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:orientation="horizontal"></LinearLayout>
 
-        <Button
-            android:id="@+id/button3"
-            android:layout_width="206dp"
-            android:layout_height="66dp"
-            android:text="@string/button3"
-            app:layout_column="0"
-            app:layout_gravity="center"
-            app:layout_row="3" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
 
-        <Button
-            android:id="@+id/button2"
-            android:layout_width="206dp"
-            android:layout_height="66dp"
-            android:layout_marginBottom="50dp"
-            android:text="@string/button2"
-            app:layout_column="0"
-            app:layout_gravity="center"
-            app:layout_row="2" />
-    </android.support.v7.widget.GridLayout>
+            <Button
+                android:id="@+id/new_game_btn"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:onClick="switchToNewGameActivity"
+                android:text="@string/new_game"
+                app:layout_column="0"
+                app:layout_row="1" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.05"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:text="@string/button2"
+                app:layout_column="0"
+                app:layout_row="2" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.05"
+            android:orientation="horizontal"></LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:text="@string/button3"
+                app:layout_column="0"
+                app:layout_row="3" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="0.9"
+            android:orientation="horizontal"></LinearLayout>
+
+    </LinearLayout>
+
 </FrameLayout>

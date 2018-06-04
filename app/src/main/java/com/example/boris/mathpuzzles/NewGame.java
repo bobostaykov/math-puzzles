@@ -3,8 +3,11 @@ package com.example.boris.mathpuzzles;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 public class NewGame extends AppCompatActivity {
+
+    private Button easy_board_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,4 +35,21 @@ public class NewGame extends AppCompatActivity {
         decorView.setSystemUiVisibility(uiOptions);
     }
 
+
+    public void backToMainActivity(View v) {
+        finish();
+    }
+
+
+    public void easyBoard(View v) {
+        easy_board_btn.
+    }
+
 }
+
+
+
+
+
+
+

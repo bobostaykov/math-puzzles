@@ -13,10 +13,5 @@
     <string name="math_problems_label">Math problems</string>
     <string name="hard_button">Hard</string>
     <string name="start_button">Start</string>
-
-    <string name="title_activity_test">test</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
-
-    <string name="title_activity_test2">test2</string>
+    <string name="back_button">Back</string>
 </resources>
