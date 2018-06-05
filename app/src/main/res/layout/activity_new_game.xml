@@ -68,6 +68,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:elevation="0dp"
+                android:onClick="easyBoard"
                 android:text="@string/easy_button"
                 app:layout_column="0"
                 app:layout_row="2" />
@@ -79,6 +80,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:onClick="mediumBoard"
                 android:text="@string/medium_button"
                 app:layout_column="1"
                 app:layout_row="2" />
@@ -88,6 +90,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="hardBoard"
                 android:text="@string/hard_button"
                 app:layout_column="2"
                 app:layout_row="2" />
@@ -126,6 +129,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="easyTime"
                 android:text="@string/easy_button"
                 app:layout_column="0"
                 app:layout_row="4" />
@@ -137,6 +141,7 @@
                 android:layout_marginLeft="10dp"
                 android:layout_marginRight="10dp"
                 android:layout_weight="1"
+                android:onClick="mediumTime"
                 android:text="@string/medium_button"
                 app:layout_column="1"
                 app:layout_row="4" />
@@ -146,6 +151,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="hardTime"
                 android:text="@string/hard_button"
                 app:layout_column="2"
                 app:layout_row="4" />
@@ -184,6 +190,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="easyMath"
                 android:text="@string/easy_button"
                 app:layout_column="0"
                 app:layout_row="6" />
@@ -195,6 +202,7 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="5dp"
                 android:layout_weight="1"
+                android:onClick="mediumMath"
                 android:text="@string/medium_button"
                 app:layout_column="1"
                 app:layout_row="6" />
@@ -204,6 +212,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
+                android:onClick="hardMath"
                 android:text="@string/hard_button"
                 app:layout_column="2"
                 app:layout_row="6" />
@@ -231,7 +240,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_marginLeft="60dp"
+                android:layout_marginStart="60dp"
                 android:layout_weight="1"
                 android:text="@string/start_button"
                 app:layout_column="2"
