@@ -1,19 +1,28 @@
-//comments ok
 package com.example.boris.mathpuzzles;
 
-import android.content.Intent;
+import android.content.Context;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.GridView;
+import android.widget.ImageView;
+import android.widget.Toast;
 
-public class MainActivity extends AppCompatActivity {
+public class Game extends AppCompatActivity {
+
+    private GridView game_board;
+    private Puzzle puzzle = new Puzzle();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.activity_game);
         hideNavStatBar();
+
+        game_board = findViewById(R.id.game_board);
+        game_board.setAdapter(new ImageAdapter(this, game_board));
     }
 
 
@@ -24,7 +33,6 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    //entering fullscreen
     private void hideNavStatBar() {
         View decorView = this.getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -35,13 +43,5 @@ public class MainActivity extends AppCompatActivity {
                 | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION;
         decorView.setSystemUiVisibility(uiOptions);
     }
-
-
-    //when "New Game" button has been pressed
-    public void switchToNewGameActivity(View v) {
-        Intent intent = new Intent(this, NewGame.class);
-        startActivity(intent);
-    }
-
 
 }

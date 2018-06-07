@@ -1,10 +1,13 @@
+//comments ok
 package com.example.boris.mathpuzzles;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.View;
 import android.widget.Button;
 
@@ -31,6 +34,7 @@ public class NewGame extends AppCompatActivity {
     private boolean medium_math_btn_chosen = false;
     private boolean hard_math_btn_chosen = false;
 
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -56,6 +60,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //entering fullscreen
     private void hideNavStatBar() {
         View decorView = this.getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE
@@ -68,11 +73,13 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //when "Back" button has been pressed
     public void backToMainActivity(View v) {
         finish();
     }
 
 
+    //level easy for board size chosen
     public void easyBoard(View v) {
 
         if (medium_board_btn_chosen) {
@@ -85,11 +92,13 @@ public class NewGame extends AppCompatActivity {
             hard_board_btn_chosen = false;
         }
 
+
         easy_board_btn.setBackground(createButtonBorder());
         easy_board_btn_chosen = true;
     }
 
 
+    //level medium for board size chosen
     public void mediumBoard(View v) {
 
         if (easy_board_btn_chosen) {
@@ -107,6 +116,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level hard for board size chosen
     public void hardBoard(View v) {
 
         if (easy_board_btn_chosen) {
@@ -124,6 +134,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level easy for time chosen
     public void easyTime(View v) {
 
         if (medium_time_btn_chosen) {
@@ -141,6 +152,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level medium for time chosen
     public void mediumTime(View v) {
 
         if (easy_time_btn_chosen) {
@@ -158,6 +170,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level hard for time chosen
     public void hardTime(View v) {
 
         if (easy_time_btn_chosen) {
@@ -175,6 +188,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level easy for math problems chosen
     public void easyMath(View v) {
 
         if (medium_math_btn_chosen) {
@@ -192,6 +206,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level medium for math problems chosen
     public void mediumMath(View v) {
 
         if (easy_math_btn_chosen) {
@@ -209,6 +224,7 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //level hard for math problems chosen
     public void hardMath(View v) {
 
         if (easy_math_btn_chosen) {
@@ -226,12 +242,20 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //setting border to the button to be visible fro the user what level has been chosen
     private Drawable createButtonBorder() {
         GradientDrawable drawable = new GradientDrawable();
         drawable.setShape(GradientDrawable.RECTANGLE);
         drawable.setStroke(5, Color.MAGENTA);
         drawable.setColor(Color.WHITE);
         return drawable;
+    }
+
+
+    //when "Start" button has been pressed
+    public void switchToGameActivity(View v) {
+        Intent intent = new Intent(this, Game.class);
+        startActivity(intent);
     }
 
 }
