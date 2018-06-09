@@ -23,6 +23,7 @@ public class ImageAdapter extends BaseAdapter {
     private Puzzle puzzle = new Puzzle();
     private GridView game_board;
     private Context mContext;
+    private boolean zeroOnce = false;
 
     public ImageAdapter(Context context, GridView game_board) {
         mContext = context;
@@ -52,13 +53,17 @@ public class ImageAdapter extends BaseAdapter {
             imageView = (ImageView) convertView;
         }
 
+        //otherwise several elements are being imported to position 0
+        if (position == 0 && zeroOnce) return imageView;
+        if (position == 0) zeroOnce = true;
+
         imageView.setImageResource(puzzle.getItemId(position));
         puzzle.setImageViewToItem(imageView, position);
 
         game_board.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                puzzle.moveItem(puzzle.getItem(position), game_board);
+                puzzle.moveItem(puzzle.getItem(position));
             }
         });
 

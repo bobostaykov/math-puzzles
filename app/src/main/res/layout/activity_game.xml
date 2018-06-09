@@ -7,19 +7,31 @@
     android:orientation="vertical"
     tools:context=".Game">
 
-    <FrameLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1">
+        android:layout_weight="1"
+        android:gravity="center">
 
         <TextView
-            android:id="@+id/textView2"
+            android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginLeft="100dp"
+            android:layout_toRightOf="@+id/moves"
             android:text="TIMER"
             android:textSize="30sp" />
-    </FrameLayout>
+
+        <TextView
+            android:id="@+id/moves"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="MOVES"
+            android:textSize="30sp" />
+    </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
@@ -37,4 +49,5 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="2dp" />
     </FrameLayout>
+
 </LinearLayout>

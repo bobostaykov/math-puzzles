@@ -8,7 +8,7 @@ import java.util.Collections;
 
 public class Puzzle {
 
-    private int blankPosition = 8;
+    private int blankPosition;
 
     private ArrayList<PuzzleItem> items = new ArrayList<PuzzleItem>() {{
         add(new PuzzleItem(R.drawable.s1, 0));
@@ -24,6 +24,7 @@ public class Puzzle {
 
 
     public Puzzle() {
+        blankPosition = getItemPos(0);
         Collections.shuffle(items);
     }
 
@@ -35,7 +36,7 @@ public class Puzzle {
 
     public void setImageViewToItem(ImageView imageView, int index) {
         for (PuzzleItem curr : items) {
-            if (curr.getIndex() == index) {
+            if (curr.getCurrentIndex() == index) {
                 curr.setImageView(imageView);
                 break;
             }
@@ -45,7 +46,7 @@ public class Puzzle {
 
     public int getItemId(int index) {
         for (PuzzleItem curr : items) {
-            if (curr.getIndex() == index) return curr.getDrawableId();
+            if (curr.getCurrentIndex() == index) return curr.getDrawableId();
         }
         return -1;
     }
@@ -61,7 +62,7 @@ public class Puzzle {
 
     public int getImageViewIndex(ImageView imageView) {
         for (PuzzleItem curr : items) {
-            if (curr.getImageView().equals(imageView)) return curr.getIndex();
+            if (curr.getImageView().equals(imageView)) return curr.getCurrentIndex();
         }
         return -1;
     }
@@ -69,7 +70,9 @@ public class Puzzle {
 
     public PuzzleItem getItem(int position) {
         for (PuzzleItem curr : items) {
-            if (curr.getIndex() == position) return curr;
+            if (curr.getCurrentIndex() == position) {
+                return curr;
+            }
         }
         return null;
     }
@@ -85,22 +88,60 @@ public class Puzzle {
     }
 
 
-    public void moveItem(PuzzleItem item, GridView gridView) {
-        boolean left = item.getIndex() == blankPosition - 1 && blankPosition % 3 != 0;
-        boolean right = item.getIndex() == blankPosition + 1 && (blankPosition - 2) % 3 != 0;
-        boolean over = item.getIndex() == blankPosition - 3;
-        boolean under = item.getIndex() == blankPosition + 3;
+    public void moveItem(PuzzleItem item) {
+        boolean left = item.getCurrentIndex() == blankPosition - 1 && blankPosition % 3 != 0;
+        boolean right = item.getCurrentIndex() == blankPosition + 1 && (blankPosition - 2) % 3 != 0;
+        boolean over = item.getCurrentIndex() == blankPosition - 3;
+        boolean under = item.getCurrentIndex() == blankPosition + 3;
         if (left || right || over || under) {
-            ImageView blank = (ImageView) gridView.getChildAt(blankPosition);
-            blankPosition = item.getIndex();
-            blank.setImageResource(item.getDrawableId());
-            if (item.getImageView() != null) item.getImageView().setImageDrawable(null);
+            swapItemWithBlank(item);
         }
     }
 
 
-    public static void test(PuzzleItem item) {
-        System.err.println(item.getImageView() == null);
+    public void swapItemWithBlank(PuzzleItem item) {
+        //swapping ImageViews
+        ImageView tempView = getItem(blankPosition).getImageView();
+        getItem(blankPosition).setImageView(item.getImageView());
+        item.setImageView(tempView);
+
+        //swapping indices
+        int newIndex = blankPosition;
+        getItem(blankPosition).setCurrentIndex(item.getCurrentIndex());
+        blankPosition = item.getCurrentIndex();
+        item.setCurrentIndex(newIndex);
+
+        getItem(blankPosition).getImageView().setImageResource(0);
+        getItem(newIndex).getImageView().setImageResource(item.getDrawableId());
+    }
+
+
+    public void drawPuzzle(GridView gridView) {
+        for (int i = 0; i < gridView.getChildCount(); i++) {
+            ImageView curr = (ImageView) gridView.getChildAt(i);
+            curr.setImageResource(getItem(i).getDrawableId());
+        }
+    }
+
+
+    public int getItemPos(int drawableId) {
+        for (PuzzleItem curr : items) {
+            if (curr.getDrawableId() == drawableId) return curr.getCurrentIndex();
+        }
+        return -1;
     }
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
