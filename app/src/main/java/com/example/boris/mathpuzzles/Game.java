@@ -1,3 +1,4 @@
+//
 package com.example.boris.mathpuzzles;
 
 import android.content.Context;
@@ -10,10 +11,12 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import java.io.File;
+
 public class Game extends AppCompatActivity {
 
     private GridView game_board;
-    private Puzzle puzzle = new Puzzle();
+    private int boardColumns;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -22,7 +25,21 @@ public class Game extends AppCompatActivity {
         hideNavStatBar();
 
         game_board = findViewById(R.id.game_board);
-        game_board.setAdapter(new ImageAdapter(this, game_board));
+
+        if (AllLevels.getBoard() == Level.EASY) {
+            game_board.setNumColumns(3);
+            boardColumns = 3;
+        }
+        if (AllLevels.getBoard() == Level.MEDIUM) {
+            game_board.setNumColumns(4);
+            boardColumns = 4;
+        }
+        if (AllLevels.getBoard() == Level.HARD) {
+            game_board.setNumColumns(5);
+            boardColumns = 5;
+        }
+
+        game_board.setAdapter(new ImageAdapter(this, game_board, boardColumns));
     }
 
 

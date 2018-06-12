@@ -1,31 +1,154 @@
+//
 package com.example.boris.mathpuzzles;
 
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Collections;
 
 public class Puzzle {
 
-    private int blankPosition;
-
-    private ArrayList<PuzzleItem> items = new ArrayList<PuzzleItem>() {{
-        add(new PuzzleItem(R.drawable.s1, 0));
-        add(new PuzzleItem(R.drawable.s2, 1));
-        add(new PuzzleItem(R.drawable.s3, 2));
-        add(new PuzzleItem(R.drawable.s4, 3));
-        add(new PuzzleItem(R.drawable.s5, 4));
-        add(new PuzzleItem(R.drawable.s6, 5));
-        add(new PuzzleItem(R.drawable.s7, 6));
-        add(new PuzzleItem(R.drawable.s8, 7));
-        add(new PuzzleItem(0, 8));
-    }};
+    private int blankPosition, boardColumns;
+    private ArrayList<PuzzleItem> items = new ArrayList<>();
 
 
     public Puzzle() {
+        boardColumns = Global.getBoardColumns();
+        importItemsToList();
+        shuffleItems();
         blankPosition = getItemPos(0);
-        Collections.shuffle(items);
+    }
+
+
+    public void importItemsToList() {
+        for (int i = 0; i < boardColumns*boardColumns - 1; i++) {
+            int resourceID = Global.getGlobalResources().getIdentifier("s" + i, "drawable", Global.getGlobalPackageName());
+            String name = Global.getGlobalResources().getResourceEntryName(resourceID);
+            if (i < 10) {
+                if (name.charAt(name.length() - 2) == 's') {
+                    items.add(new PuzzleItem(resourceID, i));
+                }
+            }
+            else {
+                if (name.charAt(name.length() - 3) == 's') {
+                    items.add(new PuzzleItem(resourceID, i));
+                }
+            }
+        }
+        items.add(new PuzzleItem(0, boardColumns*boardColumns - 1));
+    }
+
+
+    public void shuffleItems() {
+        //avoiding impossible to solve permutations
+        do {
+            Collections.shuffle(items);
+            int index = 0;
+            for (PuzzleItem curr : items) {
+                curr.setCurrentIndex(index);
+                index++;
+            }
+        } while (isImpossible(items));
+    }
+
+
+    public void outputItems() {
+        System.err.println();
+        for (PuzzleItem curr : items) System.err.print(curr.getCurrentIndex() + " ");
+        System.err.println();
+    }
+
+
+    public boolean isImpossible(ArrayList<PuzzleItem> list) {
+        boolean inversionsEven = countInversions(toArray(withoutBlank(list))).getInversions() % 2 == 0;
+//        if (boardColumns % 2 == 0) {
+//            if (blankIsOnEvenRow()) return inversionsEven;
+//            else return !inversionsEven;
+//        }
+//        else {
+//            System.err.println("Inversions: " + countInversions(toArray(list)).getInversions());
+//            return !inversionsEven;
+//        }
+        return !inversionsEven;
+    }
+
+
+    public boolean blankIsOnEvenRow() {
+        //counting from bottom
+        if (boardColumns == 4) return (blankPosition >= 0 && blankPosition <= 3)  ||  (blankPosition >= 8 && blankPosition <= 12);
+        if (boardColumns == 5) return (blankPosition >= 5 && blankPosition <= 9)  ||  (blankPosition >= 15 && blankPosition <= 19);
+        //if (boardColumns == 3)
+        return blankPosition >= 3 && blankPosition <= 5;
+    }
+
+
+    public static Inversions countInversions(PuzzleItem[] array) {
+        if (array.length == 1) return new Inversions(0, array);
+        Inversions a = countInversions(Arrays.copyOfRange(array, 0, (array.length - 1) / 2 + 1));
+        Inversions b = countInversions(Arrays.copyOfRange(array, (array.length - 1) / 2 + 1, array.length));
+        Inversions c = mergeAndCount(a.getArray(), b.getArray());
+        return new Inversions(a.getInversions() + b.getInversions() + c.getInversions(), c.getArray());
+    }
+
+
+    public static Inversions mergeAndCount(PuzzleItem[] array1, PuzzleItem[] array2) {
+        int i = 0, j = 0, p = 0, count = 0;
+        PuzzleItem[] resultArray = new PuzzleItem[array1.length + array2.length];
+        while (array1.length != 0 && array2.length != 0) {
+            if (array1[i].getSolvedIndex() <= array2[j].getSolvedIndex()) {
+                resultArray[p] = array1[i];
+                p++;
+                if (array1.length == 1) array1 = new PuzzleItem[0];
+                else array1 = Arrays.copyOfRange(array1, i + 1, array1.length);
+            } else {
+                resultArray[p] = array2[j];
+                p++;
+                if (array2.length == 1) array2 = new PuzzleItem[0];
+                else array2 = Arrays.copyOfRange(array2, j + 1, array2.length);
+                //number of elements left in list1
+                count += array1.length;
+            }
+        }
+        if (array1.length == 0) {
+            for (int k = j; k < array2.length; k++) {
+                resultArray[p] = array2[k];
+                p++;
+            }
+        }
+        if (array2.length == 0) {
+            for (int k = i; k < array1.length; k++) {
+                resultArray[p] = array1[k];
+                p++;
+            }
+        }
+        return new Inversions(count, resultArray);
+    }
+
+
+    private static PuzzleItem[] toArray(ArrayList<PuzzleItem> list) {
+        PuzzleItem[] array = new PuzzleItem[list.size()];
+        int i = 0;
+        for (PuzzleItem curr : list) {
+            array[i] = curr;
+            i++;
+        }
+        return array;
+    }
+
+
+    //returns the same list without the blank item
+    public ArrayList<PuzzleItem> withoutBlank(ArrayList<PuzzleItem> list) {
+        ArrayList<PuzzleItem> result = new ArrayList<>(list);
+        for (PuzzleItem curr : result) {
+            if (curr.getDrawableId() == 0) {
+                result.remove(curr);
+                break;
+            }
+        }
+        return result;
     }
 
 
@@ -89,30 +212,115 @@ public class Puzzle {
 
 
     public void moveItem(PuzzleItem item) {
-        boolean left = item.getCurrentIndex() == blankPosition - 1 && blankPosition % 3 != 0;
-        boolean right = item.getCurrentIndex() == blankPosition + 1 && (blankPosition - 2) % 3 != 0;
-        boolean over = item.getCurrentIndex() == blankPosition - 3;
-        boolean under = item.getCurrentIndex() == blankPosition + 3;
-        if (left || right || over || under) {
-            swapItemWithBlank(item);
+        int index = item.getCurrentIndex();
+
+        if (rowColumn(item) == 1) {
+            //item is in the same row before the blank
+            PuzzleItem toMove = new PuzzleItem(item);
+            for (int i = 0; i < blankPosition - index; i++) {
+                PuzzleItem toRemove = getItem(item.getCurrentIndex() + 1);
+                slideItem(item, toRemove);
+                item = toRemove;
+            }
+            //finally "slide" the blank to the place of the initial (clicked) item
+            slideItem(item, toMove);
         }
+        if (rowColumn(item) == 2) {
+            //item is in the same row after the blank
+            PuzzleItem toMove = new PuzzleItem(item);
+            for (int i = 0; i < index - blankPosition; i++) {
+                PuzzleItem toRemove = getItem(item.getCurrentIndex() - 1);
+                slideItem(item, toRemove);
+                item = toRemove;
+            }
+            //finally "slide" the blank to the place of the initial (clicked) item
+            slideItem(item, toMove);
+        }
+        if (rowColumn(item) == 3) {
+            //item is in the same column before the blank
+            PuzzleItem toMove = new PuzzleItem(item);
+            for (int i = 0; i < (blankPosition - index) / boardColumns; i++) {
+                PuzzleItem toRemove = getItem(item.getCurrentIndex() + boardColumns);
+                slideItem(item, toRemove);
+                item = toRemove;
+            }
+            //finally "slide" the blank to the place of the initial (clicked) item
+            slideItem(item, toMove);
+        }
+        if (rowColumn(item) == 4) {
+            //item is in the same column after the blank
+            PuzzleItem toMove = new PuzzleItem(item);
+            for (int i = 0; i < (index - blankPosition) / boardColumns; i++) {
+                PuzzleItem toRemove = getItem(item.getCurrentIndex() - boardColumns);
+                slideItem(item, toRemove);
+                item = toRemove;
+            }
+            //finally "slide" the blank to the place of the initial (clicked) item
+            slideItem(item, toMove);
+        }
+
+        if (isSolved()) Toast.makeText(Global.getContext(), "You won!", Toast.LENGTH_SHORT).show();
     }
 
 
-    public void swapItemWithBlank(PuzzleItem item) {
+    //returns if the input item is in the same row or column as the blank item and which row/column
+    public int rowColumn(PuzzleItem item) {
+        int index = item.getCurrentIndex();
+        if (index < blankPosition  &&  (blankPosition - index <= blankPosition % boardColumns)) {
+            //item is in the same row as blank, before blank
+            return 1;
+        }
+        if (index > blankPosition  &&  (index - blankPosition <= boardColumns - blankPosition % boardColumns - 1)) {
+            //item is in the same row as blank, after blank
+            return 2;
+        }
+        if ((index - blankPosition) % boardColumns == 0) {
+            //item is in the same column as blank
+            if (index < blankPosition) {
+                //item is before blank in this column
+                return 3;
+            }
+            if (index > blankPosition) {
+                //item is after blank in this column
+                return 4;
+            }
+        }
+        //if index == blankPosition (the user has clicked on the blank), do nothing
+
+        //item ist neither in the same row nor in the same column
+        return 0;
+    }
+
+
+    public void slideItem(PuzzleItem itemToSlide, PuzzleItem itemToRemove) {
+        System.err.println(itemToSlide);
+        System.err.println(itemToRemove);
+        itemToSlide.setImageView(itemToRemove.getImageView());
+        //itemToSlide.setDrawableId(itemToRemove.getDrawableId());
+        if (itemToSlide.getCurrentIndex() == blankPosition) blankPosition = itemToRemove.getCurrentIndex();
+        itemToSlide.setCurrentIndex(itemToRemove.getCurrentIndex());
+        itemToSlide.setImageResource(itemToSlide.getDrawableId());
+        System.err.println(itemToSlide);
+        System.err.println(itemToRemove);
+    }
+
+
+    public void swapItems(PuzzleItem item1, PuzzleItem item2) {
         //swapping ImageViews
-        ImageView tempView = getItem(blankPosition).getImageView();
-        getItem(blankPosition).setImageView(item.getImageView());
-        item.setImageView(tempView);
+        ImageView tempView = item1.getImageView();
+        item1.setImageView(item2.getImageView());
+        item2.setImageView(tempView);
 
         //swapping indices
-        int newIndex = blankPosition;
-        getItem(blankPosition).setCurrentIndex(item.getCurrentIndex());
-        blankPosition = item.getCurrentIndex();
-        item.setCurrentIndex(newIndex);
+        int tempIndex = item1.getCurrentIndex();
+        item1.setCurrentIndex(item2.getCurrentIndex());
+        if (blankPosition == tempIndex) blankPosition = item1.getCurrentIndex();
+        if (blankPosition == item2.getCurrentIndex()) blankPosition = tempIndex;
+        item2.setCurrentIndex(tempIndex);
 
-        getItem(blankPosition).getImageView().setImageResource(0);
-        getItem(newIndex).getImageView().setImageResource(item.getDrawableId());
+        int tempId = item1.getDrawableId();
+        item1.getImageView().setImageResource(item2.getDrawableId());
+        item2.getImageView().setImageResource(tempId);
     }
 
 
@@ -129,6 +337,13 @@ public class Puzzle {
             if (curr.getDrawableId() == drawableId) return curr.getCurrentIndex();
         }
         return -1;
+    }
+
+
+    public boolean isSolved() {
+        for (PuzzleItem curr : items)
+            if (curr.getSolvedIndex() != curr.getCurrentIndex()) return false;
+        return true;
     }
 
 }

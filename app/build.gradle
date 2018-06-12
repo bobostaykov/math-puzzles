@@ -27,5 +27,4 @@ dependencies {
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
     implementation 'com.android.support.constraint:constraint-layout:1.1.0'
     implementation 'com.android.support:gridlayout-v7:27.1.1'
-    implementation files('libs/cocos2d-master/cocos2d-android/libs/cocos2d-android.jar')
 }

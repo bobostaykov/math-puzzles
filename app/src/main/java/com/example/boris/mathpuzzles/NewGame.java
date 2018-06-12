@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.os.Environment;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
@@ -95,6 +96,8 @@ public class NewGame extends AppCompatActivity {
 
         easy_board_btn.setBackground(createButtonBorder());
         easy_board_btn_chosen = true;
+        //saving the chosen level in the class AllLevels to access it later from Game
+        AllLevels.setBoard(Level.EASY);
     }
 
 
@@ -113,6 +116,7 @@ public class NewGame extends AppCompatActivity {
 
         medium_board_btn.setBackground(createButtonBorder());
         medium_board_btn_chosen = true;
+        AllLevels.setBoard(Level.MEDIUM);
     }
 
 
@@ -131,6 +135,7 @@ public class NewGame extends AppCompatActivity {
 
         hard_board_btn.setBackground(createButtonBorder());
         hard_board_btn_chosen = true;
+        AllLevels.setBoard(Level.HARD);
     }
 
 
@@ -149,6 +154,7 @@ public class NewGame extends AppCompatActivity {
 
         easy_time_btn.setBackground(createButtonBorder());
         easy_time_btn_chosen = true;
+        AllLevels.setTime(Level.EASY);
     }
 
 
@@ -167,6 +173,7 @@ public class NewGame extends AppCompatActivity {
 
         medium_time_btn.setBackground(createButtonBorder());
         medium_time_btn_chosen = true;
+        AllLevels.setTime(Level.MEDIUM);
     }
 
 
@@ -185,6 +192,7 @@ public class NewGame extends AppCompatActivity {
 
         hard_time_btn.setBackground(createButtonBorder());
         hard_time_btn_chosen = true;
+        AllLevels.setTime(Level.HARD);
     }
 
 
@@ -203,6 +211,7 @@ public class NewGame extends AppCompatActivity {
 
         easy_math_btn.setBackground(createButtonBorder());
         easy_math_btn_chosen = true;
+        AllLevels.setMath(Level.EASY);
     }
 
 
@@ -221,6 +230,7 @@ public class NewGame extends AppCompatActivity {
 
         medium_math_btn.setBackground(createButtonBorder());
         medium_math_btn_chosen = true;
+        AllLevels.setMath(Level.MEDIUM);
     }
 
 
@@ -239,6 +249,7 @@ public class NewGame extends AppCompatActivity {
 
         hard_math_btn.setBackground(createButtonBorder());
         hard_math_btn_chosen = true;
+        AllLevels.setMath(Level.HARD);
     }
 
 
