@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="settings">Настройки</string>
+    <string name="new_game">Нова игра</string>
+    <string name="choose_level_label">Избери ниво</string>
+    <string name="board_size_label">Големина на дъската</string>
+    <string name="time_label">Време</string>
+    <string name="math_problems_label">Задачи</string>
+    <string name="hard_button">Трудно</string>
+    <string name="start_button">Започни!</string>
+    <string name="back_button">Назад</string>
+    <string name="moves_count">Ходове:</string>
+    <string name="you_won">Ти спечели! Ходове:\\u0020</string>
+    <string name="easy_button">Лесно</string>
+    <string name="medium_button">Средно</string>
+    <string name="en_lang">английски</string>
+    <string name="de_lang">немски</string>
+    <string name="bg_lang">български</string>
+    <string name="lang_label">Език:</string>
+</resources>

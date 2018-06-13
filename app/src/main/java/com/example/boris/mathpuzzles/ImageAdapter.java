@@ -9,19 +9,20 @@ import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
 import android.widget.ImageView;
-
-import java.io.File;
+import android.widget.TextView;
 
 public class ImageAdapter extends BaseAdapter {
 
     private Puzzle puzzle;
     private GridView game_board;
+    private TextView movesNumber;
     private Context mContext;
     private boolean zeroOnce = false;
 
-    public ImageAdapter(Context context, GridView game_board, int columns) {
+    public ImageAdapter(Context context, GridView game_board, int columns, TextView movesNumber) {
         mContext = context;
         this.game_board = game_board;
+        this.movesNumber = movesNumber;
         Global.setBoardColumns(columns);
         puzzle = new Puzzle();
     }
@@ -60,7 +61,7 @@ public class ImageAdapter extends BaseAdapter {
         game_board.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                puzzle.moveItem(puzzle.getItem(position));
+                puzzle.moveItem(puzzle.getItem(position), movesNumber);
             }
         });
 

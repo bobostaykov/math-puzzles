@@ -12,6 +12,8 @@ import android.view.WindowManager;
 
 public class MainActivity extends AppCompatActivity {
 
+    private static boolean languageChanged = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,6 +26,11 @@ public class MainActivity extends AppCompatActivity {
     protected void onResume() {
         super.onResume();
         hideNavStatBar();
+        //otherwise the changed language does not appear in the main activity
+        if (languageChanged) {
+            languageChanged = false;
+            restartMain();
+        }
     }
 
 
@@ -44,6 +51,25 @@ public class MainActivity extends AppCompatActivity {
     public void switchToNewGameActivity(View v) {
         Intent intent = new Intent(this, NewGame.class);
         startActivity(intent);
+    }
+
+
+    //when "Settings" button has been pressed
+    public void switchToSettingsActivity(View v) {
+        Intent intent = new Intent(this, Settings.class);
+        startActivity(intent);
+    }
+
+
+    public void restartMain() {
+        finish();
+        startActivity(new Intent(this, MainActivity.class));
+        overridePendingTransition(0,0);
+    }
+
+
+    public static void setLanguageChanged() {
+        languageChanged = true;
     }
 
 

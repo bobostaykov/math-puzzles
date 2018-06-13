@@ -1,90 +1,73 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:orientation="vertical"
     tools:context=".MainActivity">
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.9"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_weight="1" />
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:gravity="center">
 
         <Button
             android:id="@+id/new_game_btn"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             android:onClick="switchToNewGameActivity"
             android:text="@string/new_game"
             app:layout_column="0"
             app:layout_row="1" />
-    </LinearLayout>
+    </TableRow>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.05"
-        android:orientation="horizontal"></LinearLayout>
-
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:gravity="center">
 
         <Button
-            android:id="@+id/button2"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:id="@+id/settings_btn"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
-            android:text="@string/button2"
+            android:onClick="switchToSettingsActivity"
+            android:text="@string/settings"
             app:layout_column="0"
             app:layout_row="2" />
-    </LinearLayout>
+    </TableRow>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="1.05"
-        android:orientation="horizontal"></LinearLayout>
-
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_weight="1"
-        android:orientation="horizontal">
+        android:gravity="center">
 
         <Button
             android:id="@+id/button3"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_gravity="center"
+            android:layout_width="200dp"
+            android:layout_height="70dp"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             android:text="@string/button3"
             app:layout_column="0"
             app:layout_row="3" />
-    </LinearLayout>
+    </TableRow>
 
-    <LinearLayout
+    <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.9"
-        android:orientation="horizontal"></LinearLayout>
+        android:layout_weight="1" />
 
-</LinearLayout>
+</TableLayout>

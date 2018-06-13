@@ -3,6 +3,7 @@ package com.example.boris.mathpuzzles;
 
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -11,15 +12,16 @@ import java.util.Collections;
 
 public class Puzzle {
 
-    private int blankPosition, boardColumns;
+    private int blankPosition, boardColumns, movesCount;
     private ArrayList<PuzzleItem> items = new ArrayList<>();
+    Game game = new Game();
 
 
     public Puzzle() {
         boardColumns = Global.getBoardColumns();
         importItemsToList();
         shuffleItems();
-        blankPosition = getItemPos(0);
+        movesCount = 0;
     }
 
 
@@ -51,6 +53,7 @@ public class Puzzle {
                 curr.setCurrentIndex(index);
                 index++;
             }
+            blankPosition = getItemPos(0);
         } while (isImpossible(items));
     }
 
@@ -63,22 +66,22 @@ public class Puzzle {
 
 
     public boolean isImpossible(ArrayList<PuzzleItem> list) {
-        boolean inversionsEven = countInversions(toArray(withoutBlank(list))).getInversions() % 2 == 0;
-//        if (boardColumns % 2 == 0) {
-//            if (blankIsOnEvenRow()) return inversionsEven;
-//            else return !inversionsEven;
-//        }
-//        else {
-//            System.err.println("Inversions: " + countInversions(toArray(list)).getInversions());
-//            return !inversionsEven;
-//        }
-        return !inversionsEven;
+        boolean inversionsEven;
+        if (boardColumns % 2 == 0) {
+            inversionsEven = countInversions(toArray(withoutBlank(list))).getInversions() % 2 == 0;
+            if (blankIsOnEvenRow()) return inversionsEven;
+            else return !inversionsEven;
+        }
+        else {
+            inversionsEven = countInversions(toArray(withoutBlank(list))).getInversions() % 2 == 0;
+            return !inversionsEven;
+        }
     }
 
 
     public boolean blankIsOnEvenRow() {
         //counting from bottom
-        if (boardColumns == 4) return (blankPosition >= 0 && blankPosition <= 3)  ||  (blankPosition >= 8 && blankPosition <= 12);
+        if (boardColumns == 4) return (blankPosition >= 0 && blankPosition <= 3)  ||  (blankPosition >= 8 && blankPosition <= 11);
         if (boardColumns == 5) return (blankPosition >= 5 && blankPosition <= 9)  ||  (blankPosition >= 15 && blankPosition <= 19);
         //if (boardColumns == 3)
         return blankPosition >= 3 && blankPosition <= 5;
@@ -211,55 +214,73 @@ public class Puzzle {
     }
 
 
-    public void moveItem(PuzzleItem item) {
+    public void moveItem(PuzzleItem item, TextView movesNumber) {
+        //clicked item
         int index = item.getCurrentIndex();
+        int newMoves = 0;
 
-        if (rowColumn(item) == 1) {
-            //item is in the same row before the blank
-            PuzzleItem toMove = new PuzzleItem(item);
-            for (int i = 0; i < blankPosition - index; i++) {
-                PuzzleItem toRemove = getItem(item.getCurrentIndex() + 1);
-                slideItem(item, toRemove);
-                item = toRemove;
+        switch (rowColumn(item)) {
+            case 1: {
+                //item is in the same row before the blank
+                PuzzleItem toMove = new PuzzleItem(item);
+                newMoves = blankPosition - index;
+                for (int i = 0; i < blankPosition - index; i++) {
+                    PuzzleItem toRemove = getItem(item.getCurrentIndex() + 1);
+                    slideItem(item, toRemove);
+                    item = toRemove;
+                }
+                //finally "slide" the blank to the place of the initial (clicked) item
+                slideItem(item, toMove);
+                break;
             }
-            //finally "slide" the blank to the place of the initial (clicked) item
-            slideItem(item, toMove);
-        }
-        if (rowColumn(item) == 2) {
-            //item is in the same row after the blank
-            PuzzleItem toMove = new PuzzleItem(item);
-            for (int i = 0; i < index - blankPosition; i++) {
-                PuzzleItem toRemove = getItem(item.getCurrentIndex() - 1);
-                slideItem(item, toRemove);
-                item = toRemove;
+
+            case 2: {
+                //item is in the same row after the blank
+                PuzzleItem toMove = new PuzzleItem(item);
+                newMoves = index - blankPosition;
+                for (int i = 0; i < index - blankPosition; i++) {
+                    PuzzleItem toRemove = getItem(item.getCurrentIndex() - 1);
+                    slideItem(item, toRemove);
+                    item = toRemove;
+                }
+                //finally "slide" the blank to the place of the initial (clicked) item
+                slideItem(item, toMove);
+                break;
             }
-            //finally "slide" the blank to the place of the initial (clicked) item
-            slideItem(item, toMove);
-        }
-        if (rowColumn(item) == 3) {
-            //item is in the same column before the blank
-            PuzzleItem toMove = new PuzzleItem(item);
-            for (int i = 0; i < (blankPosition - index) / boardColumns; i++) {
-                PuzzleItem toRemove = getItem(item.getCurrentIndex() + boardColumns);
-                slideItem(item, toRemove);
-                item = toRemove;
+
+            case 3: {
+                //item is in the same column before the blank
+                PuzzleItem toMove = new PuzzleItem(item);
+                newMoves = (blankPosition - index) / boardColumns;
+                for (int i = 0; i < (blankPosition - index) / boardColumns; i++) {
+                    PuzzleItem toRemove = getItem(item.getCurrentIndex() + boardColumns);
+                    slideItem(item, toRemove);
+                    item = toRemove;
+                }
+                //finally "slide" the blank to the place of the initial (clicked) item
+                slideItem(item, toMove);
+                break;
             }
-            //finally "slide" the blank to the place of the initial (clicked) item
-            slideItem(item, toMove);
-        }
-        if (rowColumn(item) == 4) {
-            //item is in the same column after the blank
-            PuzzleItem toMove = new PuzzleItem(item);
-            for (int i = 0; i < (index - blankPosition) / boardColumns; i++) {
-                PuzzleItem toRemove = getItem(item.getCurrentIndex() - boardColumns);
-                slideItem(item, toRemove);
-                item = toRemove;
+
+            case 4: {
+                //item is in the same column after the blank
+                PuzzleItem toMove = new PuzzleItem(item);
+                newMoves = (index - blankPosition) / boardColumns;
+                for (int i = 0; i < (index - blankPosition) / boardColumns; i++) {
+                    PuzzleItem toRemove = getItem(item.getCurrentIndex() - boardColumns);
+                    slideItem(item, toRemove);
+                    item = toRemove;
+                }
+                //finally "slide" the blank to the place of the initial (clicked) item
+                slideItem(item, toMove);
+                break;
             }
-            //finally "slide" the blank to the place of the initial (clicked) item
-            slideItem(item, toMove);
         }
 
-        if (isSolved()) Toast.makeText(Global.getContext(), "You won!", Toast.LENGTH_SHORT).show();
+        movesCount += newMoves;
+        movesNumber.setText("" + movesCount);
+
+        if (isSolved()) Toast.makeText(Global.getContext(), Global.getContext().getString(R.string.you_won) + movesCount, Toast.LENGTH_SHORT).show();
     }
 
 
@@ -285,23 +306,16 @@ public class Puzzle {
                 return 4;
             }
         }
-        //if index == blankPosition (the user has clicked on the blank), do nothing
-
-        //item ist neither in the same row nor in the same column
+        //item ist neither in the same row nor in the same column, or it is == blank
         return 0;
     }
 
 
     public void slideItem(PuzzleItem itemToSlide, PuzzleItem itemToRemove) {
-        System.err.println(itemToSlide);
-        System.err.println(itemToRemove);
         itemToSlide.setImageView(itemToRemove.getImageView());
-        //itemToSlide.setDrawableId(itemToRemove.getDrawableId());
         if (itemToSlide.getCurrentIndex() == blankPosition) blankPosition = itemToRemove.getCurrentIndex();
         itemToSlide.setCurrentIndex(itemToRemove.getCurrentIndex());
         itemToSlide.setImageResource(itemToSlide.getDrawableId());
-        System.err.println(itemToSlide);
-        System.err.println(itemToRemove);
     }
 
 
