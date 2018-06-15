@@ -14,10 +14,20 @@
     <string name="hard_button">Hard</string>
     <string name="start_button">Start!</string>
     <string name="back_button">Back</string>
+    <string name="choose_level">Please choose a level</string>
 
     <string name="title_activity_game" translatable="false">Game</string>
     <string name="moves_count">Moves:</string>
-    <string name="you_won">You won! Moves:\u0020</string>
+    <string name="timer_format" translatable="false">%02d:%02d</string>
+    <string name="timeUp_dialog_title">Time\'s up!</string>
+    <string name="timeUp_dialog_text" translatable="false">Sorry :(</string>
+    <string name="timeUp_dialog_neg">Main Menu</string>
+    <string name="timeUp_dialog_pos">Try again</string>
+    <string name="youWon_dialog_title">You won!</string>
+    <string name="youWon_dialog_text">Congrats! Moves: %1d,\nТime remaining %1s</string>
+    <string name="youWon_dialog_neg">Main Menu</string>
+    <string name="youWon_dialog_neut">Change Level</string>
+    <string name="youWon_dialog_pos">Try another</string>
 
     <string name="title_activity_settings" translatable="false">Settings</string>
     <string name="lang_label">Language:</string>

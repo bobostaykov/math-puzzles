@@ -10,11 +10,19 @@
     <string name="hard_button">Schwer</string>
     <string name="start_button">Los!</string>
     <string name="back_button">Zurück</string>
+    <string name="choose_level">Bitte Niveau wählen</string>
     <string name="moves_count">Züge:</string>
-    <string name="you_won">Du hast gewonnen! Züge:\\u0020</string>
     <string name="medium_button">Mäsig</string>
     <string name="en_lang">Englisch</string>
     <string name="de_lang">Deutsch</string>
     <string name="bg_lang">Bulgarisch</string>
     <string name="lang_label">Sprache:</string>
+    <string name="timeUp_dialog_neg">Hauptmenü</string>
+    <string name="timeUp_dialog_title">Die Zeit ist abgelaufen</string>
+    <string name="timeUp_dialog_pos">Noch ein mal versuchen</string>
+    <string name="youWon_dialog_title">Du hast gewonnen!</string>
+    <string name="youWon_dialog_neg">Hauptmenü</string>
+    <string name="youWon_dialog_neut">Niveau ändern</string>
+    <string name="youWon_dialog_pos">Anderes versuchen</string>
+    <string name="youWon_dialog_text">Gut gemacht! Züge: %1d,\nVerbleibende Zeit %1s</string>
 </resources>
