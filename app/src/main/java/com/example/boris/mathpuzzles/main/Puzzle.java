@@ -318,11 +318,11 @@ public class Puzzle {
                 }
             };
 
-            Global.createDialog(R.string.youWon_dialog_title,
+            Global.createDialog(R.string.you_won,
                                 Global.getContext().getString(R.string.youWon_dialog_text, movesCount, timerView.getText()),
-                                R.string.youWon_dialog_neg, mainMenu,
-                                R.string.youWon_dialog_neut, changeLevel,
-                                R.string.youWon_dialog_pos, tryAnother);
+                                R.string.main_menu, mainMenu,
+                                R.string.change_level, changeLevel,
+                                R.string.try_another, tryAnother);
 
 
         }

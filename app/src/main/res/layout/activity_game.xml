@@ -10,42 +10,32 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="1"
+        android:layout_weight="0.90"
         android:gravity="center">
+
+        <TextView
+            android:id="@+id/timeText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/time"
+            android:textSize="45sp" />
 
         <TextView
             android:id="@+id/timer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_toRightOf="@+id/moves_number"
-            android:text="00:00"
-            android:textSize="30sp" />
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/timeText"
+            android:text="@string/initial_time"
+            android:textSize="45sp" />
 
-        <TextView
-            android:id="@+id/moves"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@string/moves_count"
-            android:textSize="30sp" />
-
-        <TextView
-            android:id="@+id/moves_number"
-            android:layout_width="55dp"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/moves"
-            android:layout_marginEnd="80dp"
-            android:layout_marginStart="10dp"
-            android:layout_toEndOf="@+id/moves"
-            android:text="0"
-            android:textSize="30sp" />
     </RelativeLayout>
 
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="0.15">
+        android:layout_weight="0.50">
 
         <GridView
             android:id="@+id/game_board"
@@ -57,5 +47,55 @@
             android:stretchMode="columnWidth"
             android:verticalSpacing="2dp" />
     </FrameLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.95"
+        android:gravity="center">
+
+        <TextView
+            android:id="@+id/movesText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginStart="20dp"
+            android:text="@string/moves_count"
+            android:textSize="45sp" />
+
+        <TextView
+            android:id="@+id/moves_number"
+            android:layout_width="55dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_toEndOf="@+id/movesText"
+            android:text="@string/initial_moves_count"
+            android:textSize="45sp" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.98"
+        android:gravity="center">
+
+        <Button
+            android:id="@+id/backToMain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:onClick="backToMain"
+            android:text="@string/main_menu" />
+
+        <Button
+            android:id="@+id/tryAgain"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="60dp"
+            android:layout_toEndOf="@+id/backToMain"
+            android:onClick="restartActivity"
+            android:text="@string/try_again" />
+
+    </RelativeLayout>
 
 </LinearLayout>

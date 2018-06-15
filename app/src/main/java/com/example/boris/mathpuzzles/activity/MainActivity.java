@@ -9,7 +9,7 @@ import com.example.boris.mathpuzzles.R;
 
 public class MainActivity extends AppCompatActivity {
 
-    private static boolean languageChanged = false;
+    private static boolean localeChanged = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         super.onResume();
         hideNavStatBar();
         //otherwise the changed language does not appear in the main activity
-        if (languageChanged) {
-            languageChanged = false;
+        if (localeChanged) {
+            localeChanged = false;
             restartMain();
         }
     }
@@ -58,6 +58,12 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
+    //when "Exit" button has been pressed
+    public void quitApp(View v) {
+        finishAndRemoveTask();
+    }
+
+
     public void restartMain() {
         finish();
         startActivity(new Intent(this, MainActivity.class));
@@ -65,8 +71,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    public static void setLanguageChanged() {
-        languageChanged = true;
+    public static void setLocaleChanged() {
+        localeChanged = true;
     }
 
 

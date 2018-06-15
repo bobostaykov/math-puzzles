@@ -90,9 +90,9 @@ public class Game extends AppCompatActivity {
 
                 Global.createDialog(R.string.timeUp_dialog_title,
                             getString(R.string.timeUp_dialog_text),
-                            R.string.timeUp_dialog_neg, mainMenu,
+                            R.string.main_menu, mainMenu,
                             -1, null,
-                            R.string.timeUp_dialog_pos, tryAgain);
+                            R.string.try_again, tryAgain);
 
             }
 
@@ -130,6 +130,14 @@ public class Game extends AppCompatActivity {
     }
 
 
+    public void backToMain(View v) {
+        game.finish();
+        Intent back = new Intent(game, MainActivity.class);
+        back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+        game.startActivity(back);
+    }
+
+
     public void restartActivity(Game game) {
         game.finish();
         Intent restart = new Intent(game, Game.class);
@@ -138,12 +146,20 @@ public class Game extends AppCompatActivity {
     }
 
 
+    public void restartActivity(View v) {
+        game.finish();
+        Intent restart = new Intent(game, Game.class);
+        game.startActivity(restart);
+        overridePendingTransition(0,0);
+    }
+
+
+
     public void back(Game game) {
         game.finish();
     }
 
 
-    //TODO: exit button on main screen
     //TODO: add buttons to game activity - back to main, new game
     //TODO: add sounds
     //TODO: save info to database (Firebase)

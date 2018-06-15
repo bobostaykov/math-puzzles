@@ -66,19 +66,19 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
             System.err.println(getResources().getConfiguration().locale);
             Toast.makeText(parent.getContext(), "Language changed to English", Toast.LENGTH_SHORT).show();
             setLocale("en_gb");
-            MainActivity.setLanguageChanged();
+            MainActivity.setLocaleChanged();
         }
 
         if (parent.getItemAtPosition(position).equals(getString(R.string.de_lang)) && !getResources().getConfiguration().locale.toString().equals("de")) {
             Toast.makeText(parent.getContext(), "Sprache auf Deutsch gesetzt", Toast.LENGTH_SHORT).show();
             setLocale("de");
-            MainActivity.setLanguageChanged();
+            MainActivity.setLocaleChanged();
         }
 
         if (parent.getItemAtPosition(position).equals(getString(R.string.bg_lang)) && !getResources().getConfiguration().locale.toString().equals("bg")) {
             Toast.makeText(parent.getContext(), "Избран език български", Toast.LENGTH_SHORT).show();
             setLocale("bg");
-            MainActivity.setLanguageChanged();
+            MainActivity.setLocaleChanged();
         }
 
     }
