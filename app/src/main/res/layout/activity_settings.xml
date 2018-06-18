@@ -4,19 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffffff"
-    android:gravity="center"
+    android:background="#f9f3ff"
     tools:context=".Settings">
 
     <Spinner
         android:id="@+id/language_spinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="false"
+        android:layout_alignParentTop="false"
+        android:layout_below="@+id/language_label"
         android:layout_marginEnd="20dp"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="295dp" />
+        android:layout_marginStart="20dp" />
 
     <Button
         android:id="@+id/sett_back_btn"
@@ -32,10 +31,36 @@
         android:id="@+id/language_label"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/language_spinner"
-        android:layout_alignParentStart="true"
-        android:layout_marginBottom="-295dp"
         android:layout_marginStart="20dp"
+        android:layout_marginTop="40dp"
+        android:fontFamily="casual"
         android:text="@string/lang_label"
+        android:textColor="#000000"
         android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/sound_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/language_spinner"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="50dp"
+        android:fontFamily="casual"
+        android:text="@string/sound_label"
+        android:textAppearance="@android:style/TextAppearance.Material.Small"
+        android:textSize="20sp" />
+
+    <Switch
+        android:id="@+id/time_switch"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/sound_switch"
+        android:layout_marginEnd="20dp"
+        android:layout_marginStart="20dp"
+        android:layout_marginTop="60dp"
+        android:fontFamily="casual"
+        android:text="@string/forTime_label"
+        android:textSize="20sp" />
+
 </RelativeLayout>

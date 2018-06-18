@@ -1,18 +1,29 @@
 package com.example.boris.mathpuzzles.activity;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
+import android.inputmethodservice.Keyboard;
+import android.media.AudioManager;
+import android.media.MediaPlayer;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TableLayout;
+import android.widget.TableRow;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.boris.mathpuzzles.R;
 import com.example.boris.mathpuzzles.datatype.AllLevels;
 import com.example.boris.mathpuzzles.datatype.Level;
+import com.example.boris.mathpuzzles.help.Global;
 
 public class NewGame extends AppCompatActivity {
 
@@ -27,6 +38,10 @@ public class NewGame extends AppCompatActivity {
     private Button medium_math_btn;
     private Button hard_math_btn;
 
+    private TextView timeLabel;
+    private TableLayout newGame_table;
+    private TableRow timeText_Row, timeButtons_Row, mathButtons_row;
+
     private boolean easy_board_btn_chosen = false;
     private boolean medium_board_btn_chosen = false;
     private boolean hard_board_btn_chosen = false;
@@ -37,12 +52,27 @@ public class NewGame extends AppCompatActivity {
     private boolean medium_math_btn_chosen = false;
     private boolean hard_math_btn_chosen = false;
 
+    private MyReceiver receiver;
+    private SoundPool soundPool;
+    private int soundID = 0;
+    private Global global = new Global();
+
+
+    class MyReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            if (intent.getAction().equals("DESTROY")) finish();
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_new_game);
         hideNavStatBar();
+
+        registerReceiver(receiver, new IntentFilter("DESTROY"));
 
         easy_board_btn = findViewById(R.id.easy_board_btn);
         medium_board_btn = findViewById(R.id.medium_board_btn);
@@ -53,6 +83,21 @@ public class NewGame extends AppCompatActivity {
         easy_math_btn = findViewById(R.id.easy_math_btn);
         medium_math_btn = findViewById(R.id.medium_math_btn);
         hard_math_btn = findViewById(R.id.hard_math_btn);
+        newGame_table = findViewById(R.id.NewGame_Table);
+        timeText_Row = findViewById(R.id.timeText_Row);
+        timeButtons_Row = findViewById(R.id.timeButtons_Row);
+        mathButtons_row = findViewById(R.id.math_buttons_row);
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        soundPool = new SoundPool.Builder().setMaxStreams(5).build();
+        if (Settings.getSoundOn()) soundID = soundPool.load(this, R.raw.button_click_1, 1);
+        if (!Settings.getForTimeOn()) {
+            newGame_table.removeView(timeText_Row);
+            newGame_table.removeView(timeButtons_Row);
+            TableRow.LayoutParams params = new TableRow.LayoutParams(mathButtons_row.getLayoutParams());
+            params.setMargins(80, 0, 80, 350);
+            mathButtons_row.setLayoutParams(params);
+        }
     }
 
 
@@ -76,14 +121,10 @@ public class NewGame extends AppCompatActivity {
     }
 
 
-    //when "Back" button has been pressed
-    public void backToMainActivity(View v) {
-        finish();
-    }
-
-
     //level easy for board size chosen
     public void easyBoard(View v) {
+
+        if (!easy_board_btn_chosen) global.playSound(soundPool, soundID);
 
         if (medium_board_btn_chosen) {
             medium_board_btn.setBackgroundResource(android.R.drawable.btn_default);
@@ -106,6 +147,8 @@ public class NewGame extends AppCompatActivity {
     //level medium for board size chosen
     public void mediumBoard(View v) {
 
+        if (!medium_board_btn_chosen) global.playSound(soundPool, soundID);
+
         if (easy_board_btn_chosen) {
             easy_board_btn.setBackgroundResource(android.R.drawable.btn_default);
             easy_board_btn_chosen = false;
@@ -124,6 +167,8 @@ public class NewGame extends AppCompatActivity {
 
     //level hard for board size chosen
     public void hardBoard(View v) {
+
+        if (!hard_board_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_board_btn_chosen) {
             easy_board_btn.setBackgroundResource(android.R.drawable.btn_default);
@@ -144,6 +189,8 @@ public class NewGame extends AppCompatActivity {
     //level easy for time chosen
     public void easyTime(View v) {
 
+        if (!easy_time_btn_chosen) global.playSound(soundPool, soundID);
+
         if (medium_time_btn_chosen) {
             medium_time_btn.setBackgroundResource(android.R.drawable.btn_default);
             medium_time_btn_chosen = false;
@@ -162,6 +209,8 @@ public class NewGame extends AppCompatActivity {
 
     //level medium for time chosen
     public void mediumTime(View v) {
+
+        if (!medium_time_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_time_btn_chosen) {
             easy_time_btn.setBackgroundResource(android.R.drawable.btn_default);
@@ -182,6 +231,8 @@ public class NewGame extends AppCompatActivity {
     //level hard for time chosen
     public void hardTime(View v) {
 
+        if (!hard_time_btn_chosen) global.playSound(soundPool, soundID);
+
         if (easy_time_btn_chosen) {
             easy_time_btn.setBackgroundResource(android.R.drawable.btn_default);
             easy_time_btn_chosen = false;
@@ -200,6 +251,8 @@ public class NewGame extends AppCompatActivity {
 
     //level easy for math problems chosen
     public void easyMath(View v) {
+
+        if (!easy_math_btn_chosen) global.playSound(soundPool, soundID);
 
         if (medium_math_btn_chosen) {
             medium_math_btn.setBackgroundResource(android.R.drawable.btn_default);
@@ -220,6 +273,8 @@ public class NewGame extends AppCompatActivity {
     //level medium for math problems chosen
     public void mediumMath(View v) {
 
+        if (!medium_math_btn_chosen) global.playSound(soundPool, soundID);
+
         if (easy_math_btn_chosen) {
             easy_math_btn.setBackgroundResource(android.R.drawable.btn_default);
             easy_math_btn_chosen = false;
@@ -238,6 +293,8 @@ public class NewGame extends AppCompatActivity {
 
     //level hard for math problems chosen
     public void hardMath(View v) {
+
+        if (!hard_math_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_math_btn_chosen) {
             easy_math_btn.setBackgroundResource(android.R.drawable.btn_default);
@@ -265,8 +322,16 @@ public class NewGame extends AppCompatActivity {
     }
 
 
+    //when "Back" button has been pressed
+    public void backToMainActivity(View v) {
+        global.playSound(soundPool, soundID);
+        finish();
+    }
+
+
     //when "Start" button has been pressed
     public void switchToGameActivity(View v) {
+        global.playSound(soundPool, soundID);
         if (!notAllLevelsChosen()) {
             Intent intent = new Intent(this, Game.class);
             startActivity(intent);
@@ -277,15 +342,23 @@ public class NewGame extends AppCompatActivity {
 
 
     public boolean notAllLevelsChosen() {
-        return (!easy_board_btn_chosen &&
-                !medium_board_btn_chosen &&
-                !hard_board_btn_chosen) ||
-                (!easy_time_btn_chosen &&
-                !medium_time_btn_chosen &&
-                !hard_time_btn_chosen) ||
-                (!easy_math_btn_chosen &&
-                !medium_math_btn_chosen &&
-                !hard_math_btn_chosen);
+        boolean result;
+        if (Settings.getForTimeOn()) result = (!easy_board_btn_chosen &&
+                                                !medium_board_btn_chosen &&
+                                                !hard_board_btn_chosen) ||
+                                                (!easy_time_btn_chosen &&
+                                                !medium_time_btn_chosen &&
+                                                !hard_time_btn_chosen) ||
+                                                (!easy_math_btn_chosen &&
+                                                !medium_math_btn_chosen &&
+                                                !hard_math_btn_chosen);
+        else result = (!easy_board_btn_chosen &&
+                        !medium_board_btn_chosen &&
+                        !hard_board_btn_chosen) ||
+                        (!easy_math_btn_chosen &&
+                        !medium_math_btn_chosen &&
+                        !hard_math_btn_chosen);
+        return result;
     }
 
 }

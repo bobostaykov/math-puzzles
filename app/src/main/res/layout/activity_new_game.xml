@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/NewGame_Table"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff">
@@ -18,6 +19,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_span="3"
+            android:fontFamily="casual"
             android:gravity="center"
             android:text="@string/choose_level_label"
             android:textSize="40sp" />
@@ -36,6 +38,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_span="3"
+            android:fontFamily="casual"
             android:text="@string/board_size_label"
             android:textSize="22sp" />
     </TableRow>
@@ -83,17 +86,74 @@
         android:gravity="center_vertical">
 
         <TextView
+            android:id="@+id/math_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_span="3"
+            android:fontFamily="casual"
+            android:text="@string/math_problems_label"
+            android:textSize="22sp" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/math_buttons_row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="30dp"
+        android:layout_marginRight="30dp"
+        android:layout_weight="1">
+
+        <Button
+            android:id="@+id/easy_math_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="easyMath"
+            android:text="@string/easy_button" />
+
+        <Button
+            android:id="@+id/medium_math_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_weight="1"
+            android:onClick="mediumMath"
+            android:text="@string/medium_button" />
+
+        <Button
+            android:id="@+id/hard_math_btn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:onClick="hardMath"
+            android:text="@string/hard_button" />
+    </TableRow>
+
+    <TableRow
+        android:id="@+id/timeText_Row"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginEnd="35dp"
+        android:layout_marginStart="35dp"
+        android:layout_weight="1"
+        android:gravity="center_vertical">
+
+        <TextView
             android:id="@+id/time_label"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_span="3"
+            android:fontFamily="casual"
             android:text="@string/time_label"
             android:textSize="22sp" />
     </TableRow>
 
     <TableRow
+        android:id="@+id/timeButtons_Row"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginBottom="40dp"
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_weight="1">
@@ -128,64 +188,12 @@
     <TableRow
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginEnd="35dp"
-        android:layout_marginStart="35dp"
-        android:layout_weight="1"
-        android:gravity="center_vertical">
-
-        <TextView
-            android:id="@+id/math_label"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_span="3"
-            android:text="@string/math_problems_label"
-            android:textSize="22sp" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginBottom="40dp"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
+        android:layout_marginEnd="30dp"
+        android:layout_marginStart="30dp"
         android:layout_weight="1">
 
         <Button
-            android:id="@+id/easy_math_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="easyMath"
-            android:text="@string/easy_button" />
-
-        <Button
-            android:id="@+id/medium_math_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="10dp"
-            android:layout_marginRight="10dp"
-            android:layout_weight="1"
-            android:onClick="mediumMath"
-            android:text="@string/medium_button" />
-
-        <Button
-            android:id="@+id/hard_math_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:onClick="hardMath"
-            android:text="@string/hard_button" />
-    </TableRow>
-
-    <TableRow
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginLeft="30dp"
-        android:layout_marginRight="30dp"
-        android:layout_weight="1">
-
-        <Button
-            android:id="@+id/backToMain_btn"
+            android:id="@+id/backToMain_NG"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"

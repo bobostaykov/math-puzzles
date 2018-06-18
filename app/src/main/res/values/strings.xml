@@ -23,11 +23,11 @@
     <string name="initial_time" translatable="false">00:00</string>
     <string name="timer_format" translatable="false">%02d:%02d</string>
     <string name="timeUp_dialog_title">Time\'s up!</string>
-    <string name="timeUp_dialog_text" translatable="false">Sorry :(</string>
+    <string name="timeUp_dialog_text">Too bad&#8230;</string>
     <string name="main_menu">Main Menu</string>
     <string name="try_again">Try again</string>
     <string name="you_won">You won!</string>
-    <string name="youWon_dialog_text">Congrats! Moves: %1d,\nТime remaining %1s</string>
+    <string name="youWon_dialog_text">Congrats! Moves: %1d,\nТime %02d:%02d</string>
     <string name="change_level">Change Level</string>
     <string name="try_another">Try another</string>
 
@@ -36,4 +36,12 @@
     <string name="en_lang">English</string>
     <string name="de_lang">German</string>
     <string name="bg_lang">Bulgarian</string>
+    <string name="sound_label">Sound</string>
+    <string name="forTime_label">Play for time</string>
+
+    <string name="title_activity_new_game__with_time">NewGame_WithTime</string>
+    <string name="dummy_button">Dummy Button</string>
+    <string name="dummy_content">DUMMY\nCONTENT</string>
+
+    <string name="title_activity_new_game__no_time">NewGame_NoTime</string>
 </resources>

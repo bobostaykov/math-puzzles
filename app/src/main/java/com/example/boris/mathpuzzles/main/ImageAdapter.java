@@ -3,6 +3,7 @@ package com.example.boris.mathpuzzles.main;
 
 import android.content.Context;
 import android.content.res.Resources;
+import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,19 +21,19 @@ public class ImageAdapter extends BaseAdapter {
     private Puzzle puzzle;
     private GridView game_board;
     private TextView movesNumber;
-    private TextView timerView;
     private CountDownTimer timer;
     private Context mContext;
     private Game game;
+    private SoundPool soundPool;
     private boolean zeroOnce = false;
 
-    public ImageAdapter(Context context, GridView game_board, int columns, TextView movesNumber, TextView timerView, CountDownTimer timer, Game game) {
+    public ImageAdapter(Context context, GridView game_board, int columns, TextView movesNumber, CountDownTimer timer, Game game, SoundPool soundPool) {
         mContext = context;
         this.game_board = game_board;
         this.movesNumber = movesNumber;
         this.timer = timer;
-        this.timerView = timerView;
         this.game = game;
+        this.soundPool = soundPool;
         Global.setBoardColumns(columns);
         puzzle = new Puzzle();
     }
@@ -46,7 +47,7 @@ public class ImageAdapter extends BaseAdapter {
     }
 
     public long getItemId(int position) {
-        return puzzle.getItemId(position);
+        return 0;
     }
 
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -65,13 +66,14 @@ public class ImageAdapter extends BaseAdapter {
         if (position == 0 && zeroOnce) return imageView;
         if (position == 0) zeroOnce = true;
 
-        imageView.setImageResource(puzzle.getItemId(position));
+        //imageView.setImageResource(puzzle.getItemBitmap(position));
+        imageView.setImageBitmap(puzzle.getItem(position).getBitmap());
         puzzle.setImageViewToItem(imageView, position);
 
         game_board.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                puzzle.moveItem(puzzle.getItem(position), movesNumber, timerView, timer, game);
+                puzzle.moveItemGroup(puzzle.getItem(position), movesNumber, timer, game, soundPool);
             }
         });
 

@@ -6,7 +6,11 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.util.DisplayMetrics;
+
+import com.example.boris.mathpuzzles.activity.Settings;
 
 import java.util.Locale;
 
@@ -74,5 +78,14 @@ public class Global extends Application {
         Configuration conf = res.getConfiguration();
         conf.locale = locale;
         res.updateConfiguration(conf, dm);
+    }
+
+    public void playSound(SoundPool soundPool, final int soundID) {
+        // Getting the user sound settings
+        AudioManager audioManager = (AudioManager) getContext().getSystemService(AUDIO_SERVICE);
+        float actualVolume = (float) audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        float maxVolume = (float) audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+        final float volume = actualVolume / maxVolume;
+        soundPool.play(soundID, volume, volume, 1, 0, 1f);
     }
 }

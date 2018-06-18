@@ -2,6 +2,10 @@
 package com.example.boris.mathpuzzles.main;
 
 import android.content.DialogInterface;
+import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.widget.GridView;
 import android.widget.ImageView;
@@ -9,6 +13,7 @@ import android.widget.TextView;
 
 import com.example.boris.mathpuzzles.R;
 import com.example.boris.mathpuzzles.activity.Game;
+import com.example.boris.mathpuzzles.activity.Settings;
 import com.example.boris.mathpuzzles.datatype.Inversions;
 import com.example.boris.mathpuzzles.datatype.PuzzleItem;
 import com.example.boris.mathpuzzles.help.Global;
@@ -22,34 +27,66 @@ public class Puzzle {
     private int blankPosition, boardColumns, movesCount;
     private ArrayList<PuzzleItem> items = new ArrayList<>();
     private Game gameObj = new Game();
+    private Game game;
+    private Global global = new Global();
     private boolean timerStarted = false;
+    private static int minutesPassed;
+    private static int secondsPassed;
 
 
     public Puzzle() {
         boardColumns = Global.getBoardColumns();
-        importItemsToList();
+        //importItemsToList();
+
+        ImageView image = new ImageView(Global.getContext());
+        image.setImageResource(R.drawable.sheet1);
+        splitImage(image);
+
         shuffleItems();
         movesCount = 0;
     }
 
 
-    public void importItemsToList() {
-        for (int i = 0; i < boardColumns*boardColumns - 1; i++) {
-            int resourceID = Global.getGlobalResources().getIdentifier("s" + i, "drawable", Global.getGlobalPackageName());
-            String name = Global.getGlobalResources().getResourceEntryName(resourceID);
-            if (i < 10) {
-                if (name.charAt(name.length() - 2) == 's') {
-                    items.add(new PuzzleItem(resourceID, i));
-                }
+    private void splitImage(ImageView image) {
+        BitmapDrawable drawable = (BitmapDrawable) image.getDrawable();
+        Bitmap bitmap = drawable.getBitmap();
+        Bitmap scaledBitmap = Bitmap.createScaledBitmap(bitmap, bitmap.getWidth(), bitmap.getHeight(), true);
+
+        int pieceWidth = bitmap.getWidth() / boardColumns;
+        int pieceHeight = bitmap.getHeight() / boardColumns;
+        int xCoord, yCoord = 0, index = 0;
+
+        for (int x = 0; x < boardColumns; x++){
+            xCoord = 0;
+            for (int y = 0; y < boardColumns; y++){
+                Bitmap b = Bitmap.createBitmap(scaledBitmap, xCoord, yCoord, pieceWidth, pieceHeight);
+                if (index != boardColumns*boardColumns - 1) items.add(new PuzzleItem(b, index));
+                else items.add(new PuzzleItem(null, index));
+                xCoord += pieceWidth;
+                index++;
             }
-            else {
-                if (name.charAt(name.length() - 3) == 's') {
-                    items.add(new PuzzleItem(resourceID, i));
-                }
-            }
+            yCoord += pieceHeight;
         }
-        items.add(new PuzzleItem(0, boardColumns*boardColumns - 1));
     }
+
+
+//    public void importItemsToList() {
+//        for (int i = 0; i < boardColumns*boardColumns - 1; i++) {
+//            int resourceID = Global.getGlobalResources().getIdentifier("s" + i, "drawable", Global.getGlobalPackageName());
+//            String name = Global.getGlobalResources().getResourceEntryName(resourceID);
+//            if (i < 10) {
+//                if (name.charAt(name.length() - 2) == 's') {
+//                    items.add(new PuzzleItem(resourceID, i));
+//                }
+//            }
+//            else {
+//                if (name.charAt(name.length() - 3) == 's') {
+//                    items.add(new PuzzleItem(resourceID, i));
+//                }
+//            }
+//        }
+//        items.add(new PuzzleItem(0, boardColumns*boardColumns - 1));
+//    }
 
 
     public void shuffleItems() {
@@ -61,7 +98,7 @@ public class Puzzle {
                 curr.setCurrentIndex(index);
                 index++;
             }
-            blankPosition = getItemPos(0);
+            blankPosition = getItemPos(null);
         } while (isImpossible(items));
     }
 
@@ -154,7 +191,7 @@ public class Puzzle {
     public ArrayList<PuzzleItem> withoutBlank(ArrayList<PuzzleItem> list) {
         ArrayList<PuzzleItem> result = new ArrayList<>(list);
         for (PuzzleItem curr : result) {
-            if (curr.getDrawableId() == 0) {
+            if (curr.getBitmap() == null) {
                 result.remove(curr);
                 break;
             }
@@ -178,19 +215,19 @@ public class Puzzle {
     }
 
 
-    public int getItemId(int index) {
+    public Bitmap getItemBitmap(int index) {
         for (PuzzleItem curr : items) {
-            if (curr.getCurrentIndex() == index) return curr.getDrawableId();
+            if (curr.getCurrentIndex() == index) return curr.getBitmap();
         }
-        return -1;
+        return null;
     }
 
 
-    public int getItemId(ImageView imageView) {
+    public Bitmap getItemBitmap(ImageView imageView) {
         for (PuzzleItem curr : items) {
-            if (curr.getImageView().equals(imageView)) return curr.getDrawableId();
+            if (curr.getImageView().equals(imageView)) return curr.getBitmap();
         }
-        return -1;
+        return null;
     }
 
 
@@ -222,10 +259,23 @@ public class Puzzle {
     }
 
 
-    public void moveItem(PuzzleItem item, TextView movesNumber, TextView timerView, CountDownTimer timer, final Game game) {
+    public void moveItemGroup(PuzzleItem item, TextView movesNumber, CountDownTimer timer, final Game game, SoundPool soundPool) {
+        this.game = game;
+
         //clicked item
         int index = item.getCurrentIndex();
         int newMoves = 0;
+        final int soundIdSlide = soundPool.load(game, R.raw.slide_sound_2, 2);
+        final int soundIdWin = soundPool.load(game, R.raw.win_sound, 1);
+        final PuzzleItem itemCopy = item;
+
+        game.setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+            @Override
+            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                if (Settings.getSoundOn() && rowColumn(itemCopy) != 0) global.playSound(soundPool, soundIdSlide);
+            }
+        });
 
         switch (rowColumn(item)) {
             case 1: {
@@ -286,7 +336,7 @@ public class Puzzle {
         }
 
         movesCount += newMoves;
-        if (movesCount > 0 && !timerStarted) {
+        if (movesCount > 0 && !timerStarted && Settings.getForTimeOn()) {
             timer.start();
             timerStarted = true;
         }
@@ -294,6 +344,13 @@ public class Puzzle {
 
 
         if (isSolved()) {
+
+            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
+                @Override
+                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
+                    if (Settings.getSoundOn() && rowColumn(itemCopy) != 0) global.playSound(soundPool, soundIdWin);
+                }
+            });
 
             timer.cancel();
 
@@ -319,7 +376,7 @@ public class Puzzle {
             };
 
             Global.createDialog(R.string.you_won,
-                                Global.getContext().getString(R.string.youWon_dialog_text, movesCount, timerView.getText()),
+                                Global.getContext().getString(R.string.youWon_dialog_text, movesCount, minutesPassed, secondsPassed),
                                 R.string.main_menu, mainMenu,
                                 R.string.change_level, changeLevel,
                                 R.string.try_another, tryAnother);
@@ -327,6 +384,16 @@ public class Puzzle {
 
         }
 
+    }
+
+
+    public static void setMinutesPassed(int minutes) {
+        minutesPassed = minutes;
+    }
+
+
+    public static void setSecondsPassed(int seconds) {
+        secondsPassed = seconds;
     }
 
 
@@ -361,40 +428,40 @@ public class Puzzle {
         itemToSlide.setImageView(itemToRemove.getImageView());
         if (itemToSlide.getCurrentIndex() == blankPosition) blankPosition = itemToRemove.getCurrentIndex();
         itemToSlide.setCurrentIndex(itemToRemove.getCurrentIndex());
-        itemToSlide.setImageResource(itemToSlide.getDrawableId());
+        itemToSlide.setImageBitmap(itemToSlide.getBitmap());
     }
 
 
-    public void swapItems(PuzzleItem item1, PuzzleItem item2) {
-        //swapping ImageViews
-        ImageView tempView = item1.getImageView();
-        item1.setImageView(item2.getImageView());
-        item2.setImageView(tempView);
-
-        //swapping indices
-        int tempIndex = item1.getCurrentIndex();
-        item1.setCurrentIndex(item2.getCurrentIndex());
-        if (blankPosition == tempIndex) blankPosition = item1.getCurrentIndex();
-        if (blankPosition == item2.getCurrentIndex()) blankPosition = tempIndex;
-        item2.setCurrentIndex(tempIndex);
-
-        int tempId = item1.getDrawableId();
-        item1.getImageView().setImageResource(item2.getDrawableId());
-        item2.getImageView().setImageResource(tempId);
-    }
-
-
-    public void drawPuzzle(GridView gridView) {
-        for (int i = 0; i < gridView.getChildCount(); i++) {
-            ImageView curr = (ImageView) gridView.getChildAt(i);
-            curr.setImageResource(getItem(i).getDrawableId());
-        }
-    }
+//    public void swapItems(PuzzleItem item1, PuzzleItem item2) {
+//        //swapping ImageViews
+//        ImageView tempView = item1.getImageView();
+//        item1.setImageView(item2.getImageView());
+//        item2.setImageView(tempView);
+//
+//        //swapping indices
+//        int tempIndex = item1.getCurrentIndex();
+//        item1.setCurrentIndex(item2.getCurrentIndex());
+//        if (blankPosition == tempIndex) blankPosition = item1.getCurrentIndex();
+//        if (blankPosition == item2.getCurrentIndex()) blankPosition = tempIndex;
+//        item2.setCurrentIndex(tempIndex);
+//
+//        int tempId = item1.getDrawableId();
+//        item1.getImageView().setImageResource(item2.getDrawableId());
+//        item2.getImageView().setImageResource(tempId);
+//    }
 
 
-    public int getItemPos(int drawableId) {
+//    public void drawPuzzle(GridView gridView) {
+//        for (int i = 0; i < gridView.getChildCount(); i++) {
+//            ImageView curr = (ImageView) gridView.getChildAt(i);
+//            curr.setImageResource(getItem(i).getDrawableId());
+//        }
+//    }
+
+
+    public int getItemPos(Bitmap bitmap) {
         for (PuzzleItem curr : items) {
-            if (curr.getDrawableId() == drawableId) return curr.getCurrentIndex();
+            if (curr.getBitmap() == bitmap) return curr.getCurrentIndex();
         }
         return -1;
     }

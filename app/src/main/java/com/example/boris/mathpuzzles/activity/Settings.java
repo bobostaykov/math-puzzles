@@ -3,13 +3,18 @@ package com.example.boris.mathpuzzles.activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.media.AudioManager;
+import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.CompoundButton;
 import android.widget.Spinner;
+import android.widget.Switch;
 import android.widget.Toast;
 
 import com.example.boris.mathpuzzles.R;
@@ -17,21 +22,60 @@ import com.example.boris.mathpuzzles.help.Global;
 
 import java.util.Locale;
 
-public class Settings extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class Settings extends AppCompatActivity {
 
-    private MainActivity main = new MainActivity();
+    private Global global = new Global();
     private Spinner spinner;
     private Locale locale;
+    private Switch sound_switch, time_switch;
     private boolean spinnerOpened = false;
-    String en;
-    String de;
-    String bg;
+    private static boolean sound_on = true, forTime_on = true;
+    private String en;
+    private String de;
+    private String bg;
+    private int boardColumns;
+    private SoundPool soundPool;
+    private int buttonSoundID = 0;
+    private boolean isSpinnerTouched = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_settings);
         hideNavStatBar();
+
+        setVolumeControlStream(AudioManager.STREAM_MUSIC);
+        soundPool = new SoundPool.Builder().setMaxStreams(5).build();
+
+        sound_switch = findViewById(R.id.sound_switch);
+        if (sound_on) {
+            sound_switch.setChecked(true);
+            buttonSoundID = soundPool.load(this, R.raw.button_click_1, 1);
+        }
+        sound_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                global.playSound(soundPool, buttonSoundID);
+                MainMenu.setSoundSettingChanged();
+                if (isChecked) {
+                    sound_on = true;
+                    buttonSoundID = soundPool.load(Settings.this, R.raw.button_click_1, 1);
+                } else {
+                    sound_on = false;
+                    buttonSoundID = 0;
+                }
+            }
+        });
+
+        time_switch = findViewById(R.id.time_switch);
+        time_switch.setChecked(forTime_on);
+        time_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                global.playSound(soundPool, buttonSoundID);
+                forTime_on = isChecked;
+            }
+        });
 
         spinner = findViewById(R.id.language_spinner);
 
@@ -54,39 +98,47 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
 
         ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, languages);
         spinner.setAdapter(adapter);
-        spinner.setOnItemSelectedListener(this);
 
-    }
+        spinner.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                v.performClick();
+                isSpinnerTouched = true;
+                return false;
+            }
+        });
 
+        spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (!isSpinnerTouched) return;
+                global.playSound(soundPool, buttonSoundID);
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                if (parent.getItemAtPosition(position).equals(getString(R.string.en_lang)) && !getResources().getConfiguration().locale.toString().equalsIgnoreCase("en_gb")) {
+                    Toast.makeText(parent.getContext(), "Language changed to English", Toast.LENGTH_SHORT).show();
+                    setLocale("en_gb");
+                    MainMenu.setLocaleChanged();
+                }
 
-        if (parent.getItemAtPosition(position).equals(getString(R.string.en_lang)) && !getResources().getConfiguration().locale.toString().equalsIgnoreCase("en_gb")) {
-            System.err.println(getResources().getConfiguration().locale);
-            Toast.makeText(parent.getContext(), "Language changed to English", Toast.LENGTH_SHORT).show();
-            setLocale("en_gb");
-            MainActivity.setLocaleChanged();
-        }
+                if (parent.getItemAtPosition(position).equals(getString(R.string.de_lang)) && !getResources().getConfiguration().locale.toString().equals("de")) {
+                    Toast.makeText(parent.getContext(), "Sprache auf Deutsch gesetzt", Toast.LENGTH_SHORT).show();
+                    setLocale("de");
+                    MainMenu.setLocaleChanged();
+                }
 
-        if (parent.getItemAtPosition(position).equals(getString(R.string.de_lang)) && !getResources().getConfiguration().locale.toString().equals("de")) {
-            Toast.makeText(parent.getContext(), "Sprache auf Deutsch gesetzt", Toast.LENGTH_SHORT).show();
-            setLocale("de");
-            MainActivity.setLocaleChanged();
-        }
+                if (parent.getItemAtPosition(position).equals(getString(R.string.bg_lang)) && !getResources().getConfiguration().locale.toString().equals("bg")) {
+                    Toast.makeText(parent.getContext(), "Избран език български", Toast.LENGTH_SHORT).show();
+                    setLocale("bg");
+                    MainMenu.setLocaleChanged();
+                }
+            }
 
-        if (parent.getItemAtPosition(position).equals(getString(R.string.bg_lang)) && !getResources().getConfiguration().locale.toString().equals("bg")) {
-            Toast.makeText(parent.getContext(), "Избран език български", Toast.LENGTH_SHORT).show();
-            setLocale("bg");
-            MainActivity.setLocaleChanged();
-        }
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                //do nothing
+            }
+        });
 
-    }
-
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-        //do nothing
     }
 
 
@@ -131,6 +183,17 @@ public class Settings extends AppCompatActivity implements AdapterView.OnItemSel
 
     //when "Back" button is pressed
     public void backToMain(View v) {
+        global.playSound(soundPool, buttonSoundID);
         finish();
+    }
+
+
+    public static boolean getSoundOn() {
+        return sound_on;
+    }
+
+
+    public static boolean getForTimeOn() {
+        return forTime_on;
     }
 }

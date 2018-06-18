@@ -1,17 +1,21 @@
 //
 package com.example.boris.mathpuzzles.datatype;
 
+import android.graphics.Bitmap;
 import android.widget.ImageView;
 
 public class PuzzleItem {
 
     private ImageView imageView;
-    private int drawableId, currentIndex;
+    private Bitmap bitmap;
+    private int currentIndex;
+    //private int drawableId;
     private final int solvedIndex;
 
 
-    public PuzzleItem(int drawableId, int solvedIndex) {
-        this.drawableId = drawableId;
+    public PuzzleItem(Bitmap bitmap, int solvedIndex) {
+        //this.drawableId = drawableId;
+        this.bitmap = bitmap;
         this.solvedIndex = solvedIndex;
         this.currentIndex = solvedIndex;
     }
@@ -20,9 +24,14 @@ public class PuzzleItem {
     //to create a copy
     public PuzzleItem(PuzzleItem toCopy) {
         this.imageView = toCopy.getImageView();
-        this.drawableId = toCopy.getDrawableId();
+        //this.drawableId = toCopy.getDrawableId();
         this.currentIndex = toCopy.getCurrentIndex();
         this.solvedIndex = toCopy.getSolvedIndex();
+    }
+
+
+    public Bitmap getBitmap() {
+        return bitmap;
     }
 
 
@@ -36,19 +45,19 @@ public class PuzzleItem {
     }
 
 
-    public void setImageResource(int id) {
-        imageView.setImageResource(id);
+    public void setImageBitmap(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
     }
 
 
-    public int getDrawableId() {
-        return drawableId;
-    }
+//    public int getDrawableId() {
+//        return drawableId;
+//    }
 
 
-    public void setDrawableId(int newID) {
-        drawableId = newID;
-    }
+//    public void setDrawableId(int newID) {
+//        drawableId = newID;
+//    }
 
 
     public int getSolvedIndex() {
@@ -67,7 +76,7 @@ public class PuzzleItem {
 
     @Override
     public String toString() {
-        return "[" + imageView + ", " + drawableId + ", " + currentIndex + ", " + solvedIndex + "]";
+        return "[" + imageView + ", " + bitmap + ", " + currentIndex + ", " + solvedIndex + "]";
     }
 
 }

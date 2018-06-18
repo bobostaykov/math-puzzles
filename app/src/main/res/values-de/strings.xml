@@ -18,12 +18,15 @@
     <string name="bg_lang">Bulgarisch</string>
     <string name="lang_label">Sprache:</string>
     <string name="main_menu">Hauptmenü</string>
-    <string name="timeUp_dialog_title">Die Zeit ist abgelaufen</string>
-    <string name="try_again">Noch ein mal versuchen</string>
+    <string name="timeUp_dialog_title">Die Zeit ist abgelaufen!</string>
+    <string name="timeUp_dialog_text">Schade&#8230;</string>
+    <string name="try_again">Wieder versuchen</string>
     <string name="you_won">Du hast gewonnen!</string>
-    <string name="youWon_dialog_neg">Hauptmenü</string>
     <string name="change_level">Niveau ändern</string>
     <string name="try_another">Anderes versuchen</string>
-    <string name="youWon_dialog_text">Gut gemacht! Züge: %1d,\nVerbleibende Zeit %1s</string>
+    <string name="youWon_dialog_text">Gut gemacht! Züge: %1d,\nZeit %02d:%02d</string>
     <string name="exit">Verlassen</string>
+    <string name="sound_label">Klänge</string>
+    <string name="time">Zeit:</string>
+    <string name="forTime_label">Spiel um Zeit</string>
 </resources>

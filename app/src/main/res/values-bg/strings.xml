@@ -17,13 +17,16 @@
     <string name="de_lang">немски</string>
     <string name="bg_lang">български</string>
     <string name="lang_label">Език:</string>
-    <string name="timeUp_dialog_title">Времето изтече</string>
+    <string name="timeUp_dialog_title">Времето изтече!</string>
+    <string name="timeUp_dialog_text">Шанс&#8230;</string>
     <string name="main_menu">Меню</string>
     <string name="try_again">Опитай пак</string>
     <string name="you_won">Ти спечели!</string>
-    <string name="youWon_dialog_neg">Меню</string>
     <string name="change_level">Промени нивото</string>
     <string name="try_another">Пробвай друго</string>
-    <string name="youWon_dialog_text">Честито! Ходове: %1d,\nОставащо време %1s</string>
+    <string name="youWon_dialog_text">Честито! Ходове: %1d,\nВреме %02d:%02d</string>
     <string name="exit">Излез</string>
+    <string name="sound_label">Звук</string>
+    <string name="time">Време:</string>
+    <string name="forTime_label">Играй за време</string>
 </resources>
