@@ -7,6 +7,7 @@ import android.graphics.drawable.BitmapDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
+import android.view.View;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -259,7 +260,7 @@ public class Puzzle {
     }
 
 
-    public void moveItemGroup(PuzzleItem item, TextView movesNumber, CountDownTimer timer, final Game game, SoundPool soundPool) {
+    public void moveItemGroup(PuzzleItem item, TextView movesNumber, CountDownTimer timer, final Game game, final SoundPool soundPool) {
         this.game = game;
 
         //clicked item
@@ -267,6 +268,7 @@ public class Puzzle {
         int newMoves = 0;
         final int soundIdSlide = soundPool.load(game, R.raw.slide_sound_2, 2);
         final int soundIdWin = soundPool.load(game, R.raw.win_sound, 1);
+        final int soundIdButton = soundPool.load(game, R.raw.button_click_1, 1);
         final PuzzleItem itemCopy = item;
 
         game.setVolumeControlStream(AudioManager.STREAM_MUSIC);
@@ -354,29 +356,36 @@ public class Puzzle {
 
             timer.cancel();
 
-            DialogInterface.OnClickListener mainMenu = new DialogInterface.OnClickListener() {
+            View.OnClickListener mainMenu = new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
+                    global.playSound(soundPool, soundIdButton);
                     gameObj.backToMain(game);
                 }
             };
 
-            DialogInterface.OnClickListener changeLevel = new DialogInterface.OnClickListener() {
+            View.OnClickListener changeLevel = new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
+                    global.playSound(soundPool, soundIdButton);
                     gameObj.back(game);
                 }
             };
 
-            DialogInterface.OnClickListener tryAnother = new DialogInterface.OnClickListener() {
+            View.OnClickListener tryAnother = new View.OnClickListener() {
                 @Override
-                public void onClick(DialogInterface dialog, int which) {
+                public void onClick(View v) {
+                    global.playSound(soundPool, soundIdButton);
                     gameObj.restartActivity(game);
                 }
             };
 
+            String textToShow;
+            if (Settings.getForTimeOn()) textToShow = Global.getContext().getString(R.string.youWon_dialog_text_with_time, movesCount, minutesPassed, secondsPassed);
+            else textToShow = Global.getContext().getString(R.string.youWon_dialog_text_no_time, movesCount);
+
             Global.createDialog(R.string.you_won,
-                                Global.getContext().getString(R.string.youWon_dialog_text, movesCount, minutesPassed, secondsPassed),
+                                textToShow,
                                 R.string.main_menu, mainMenu,
                                 R.string.change_level, changeLevel,
                                 R.string.try_another, tryAnother);

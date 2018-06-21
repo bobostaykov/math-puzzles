@@ -1,25 +1,31 @@
 package com.example.boris.mathpuzzles.activity;
 
+import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.support.annotation.NonNull;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.CompoundButton;
 import android.widget.Spinner;
 import android.widget.Switch;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.boris.mathpuzzles.R;
 import com.example.boris.mathpuzzles.help.Global;
 
+import java.util.List;
 import java.util.Locale;
 
 public class Settings extends AppCompatActivity {
@@ -37,6 +43,34 @@ public class Settings extends AppCompatActivity {
     private SoundPool soundPool;
     private int buttonSoundID = 0;
     private boolean isSpinnerTouched = false;
+
+
+    private static class MySpinnerAdapter extends ArrayAdapter<String> {
+        Typeface font = Typeface.create("casual", Typeface.NORMAL);
+
+        private MySpinnerAdapter(Context context, int resource, String[] items) {
+            super(context, resource, items);
+        }
+
+        @NonNull
+        @Override
+        public View getView(int position, View convertView, @NonNull ViewGroup parent) {
+            TextView view = (TextView) super.getView(position, convertView, parent);
+            view.setTypeface(font);
+            view.setTextColor(Global.getGlobalResources().getColor(R.color.colorSettingsText));
+            return view;
+        }
+
+        @Override
+        public View getDropDownView(int position, View convertView, @NonNull ViewGroup parent) {
+            TextView view = (TextView) super.getDropDownView(position, convertView, parent);
+            view.setTypeface(font);
+            view.setTextColor(Global.getGlobalResources().getColor(R.color.colorSettingsText));
+            view.setBackgroundColor(Global.getGlobalResources().getColor(R.color.colorSpinnerBody));
+            return view;
+        }
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +130,7 @@ public class Settings extends AppCompatActivity {
                 break;
         }
 
-        ArrayAdapter adapter = new ArrayAdapter<>(this, android.R.layout.simple_spinner_dropdown_item, languages);
+        MySpinnerAdapter adapter = new MySpinnerAdapter(this, android.R.layout.simple_spinner_dropdown_item, languages);
         spinner.setAdapter(adapter);
 
         spinner.setOnTouchListener(new View.OnTouchListener() {

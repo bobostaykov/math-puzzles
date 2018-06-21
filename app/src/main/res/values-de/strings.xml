@@ -9,7 +9,6 @@
     <string name="math_problems_label">Mathe</string>
     <string name="hard_button">Schwer</string>
     <string name="start_button">Los!</string>
-    <string name="back_button">Zurück</string>
     <string name="choose_level">Bitte Niveau wählen</string>
     <string name="moves_count">Züge:</string>
     <string name="medium_button">Mäsig</string>
@@ -24,9 +23,12 @@
     <string name="you_won">Du hast gewonnen!</string>
     <string name="change_level">Niveau ändern</string>
     <string name="try_another">Anderes versuchen</string>
-    <string name="youWon_dialog_text">Gut gemacht! Züge: %1d,\nZeit %02d:%02d</string>
+    <string name="youWon_dialog_text_with_time">Gut gemacht! Züge: %1d,\nZeit %02d:%02d</string>
+    <string name="youWon_dialog_text_no_time">Gut gemacht! Züge: %1d</string>
     <string name="exit">Verlassen</string>
     <string name="sound_label">Klänge</string>
     <string name="time">Zeit:</string>
     <string name="forTime_label">Spiel um Zeit</string>
+    <string name="done">Fertig</string>
+    <string name="back_to_main">Menü</string>
 </resources>

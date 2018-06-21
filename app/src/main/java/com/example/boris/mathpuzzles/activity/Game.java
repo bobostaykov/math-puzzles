@@ -8,6 +8,7 @@ import android.media.SoundPool;
 import android.os.CountDownTimer;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.DisplayMetrics;
 import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
@@ -44,6 +45,12 @@ public class Game extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_game);
         hideNavStatBar();
+
+        DisplayMetrics displayMetrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+        int screenHeight = displayMetrics.heightPixels;
+        int screenWidth = displayMetrics.widthPixels;
+        Global.setScreenSize(screenHeight, screenWidth);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
@@ -106,32 +113,35 @@ public class Game extends AppCompatActivity {
 
                 global.playSound(soundPool, soundIdLose);
 
-                DialogInterface.OnClickListener mainMenu = new DialogInterface.OnClickListener() {
+                View.OnClickListener mainMenu = new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        global.playSound(soundPool, soundIdButton);
                         backToMain(game);
                     }
                 };
 
-                DialogInterface.OnClickListener tryAgain = new DialogInterface.OnClickListener() {
+                View.OnClickListener tryAgain = new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        global.playSound(soundPool, soundIdButton);
                         restartActivity(game);
                     }
                 };
 
-                DialogInterface.OnClickListener changeLevel = new DialogInterface.OnClickListener() {
+                View.OnClickListener changeLevel = new View.OnClickListener() {
                     @Override
-                    public void onClick(DialogInterface dialog, int which) {
+                    public void onClick(View v) {
+                        global.playSound(soundPool, soundIdButton);
                         back(game);
                     }
                 };
 
                 Global.createDialog(R.string.timeUp_dialog_title,
-                            getString(R.string.timeUp_dialog_text),
-                            R.string.main_menu, mainMenu,
-                            R.string.change_level, changeLevel,
-                            R.string.try_again, tryAgain);
+                                    getString(R.string.timeUp_dialog_text),
+                                    R.string.main_menu, mainMenu,
+                                    R.string.change_level, changeLevel,
+                                    R.string.try_again, tryAgain);
 
             }
 
@@ -169,7 +179,6 @@ public class Game extends AppCompatActivity {
 
 
     public void backToMain(Game game) {
-        global.playSound(soundPool, soundIdButton);
         game.finish();
         Intent back = new Intent(game, MainMenu.class);
         back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -187,7 +196,6 @@ public class Game extends AppCompatActivity {
 
 
     public void restartActivity(Game game) {
-        global.playSound(soundPool, soundIdButton);
         game.finish();
         Intent restart = new Intent(game, Game.class);
         game.startActivity(restart);
@@ -206,7 +214,6 @@ public class Game extends AppCompatActivity {
 
 
     public void back(Game game) {
-        global.playSound(soundPool, soundIdButton);
         game.finish();
     }
 
@@ -216,10 +223,9 @@ public class Game extends AppCompatActivity {
         finish();
     }
 
-
-    //TODO: fine tune UI
+    //TODO: shape, color and font of win and lose dialogs
     //TODO: create the math problems (images)
     //TODO: create the app icon
     //TODO: save info to database (Firebase)
-    //TODO: final inspection - remove unused methods and imports, review warnings and write comments
+    //TODO: final inspection - remove unused methods (organize the rest) and imports, review warnings and write comments
 }

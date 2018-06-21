@@ -3,6 +3,7 @@
     <string name="new_game">New Game</string>
     <string name="settings">Settings</string>
     <string name="exit">Exit</string>
+    <string name="logo" translatable="false">Logo</string>
 
     <string name="title_activity_new_game" translatable="false">New Game</string>
     <string name="choose_level_label">Choose level</string>
@@ -13,7 +14,7 @@
     <string name="medium_button">Medium</string>
     <string name="hard_button">Hard</string>
     <string name="start_button">Start!</string>
-    <string name="back_button">Back</string>
+    <string name="back_to_main">Menu</string>
     <string name="choose_level">Please choose a level</string>
 
     <string name="title_activity_game" translatable="false">Game</string>
@@ -27,7 +28,8 @@
     <string name="main_menu">Main Menu</string>
     <string name="try_again">Try again</string>
     <string name="you_won">You won!</string>
-    <string name="youWon_dialog_text">Congrats! Moves: %1d,\nТime %02d:%02d</string>
+    <string name="youWon_dialog_text_with_time">Congrats! Moves: %1d,\nTime %02d:%02d</string>
+    <string name="youWon_dialog_text_no_time">Congrats! Moves: %1d</string>
     <string name="change_level">Change Level</string>
     <string name="try_another">Try another</string>
 
@@ -38,10 +40,12 @@
     <string name="bg_lang">Bulgarian</string>
     <string name="sound_label">Sound</string>
     <string name="forTime_label">Play for time</string>
+    <string name="done">Done</string>
 
-    <string name="title_activity_new_game__with_time">NewGame_WithTime</string>
-    <string name="dummy_button">Dummy Button</string>
-    <string name="dummy_content">DUMMY\nCONTENT</string>
+    <string name="initial_dialog_title" translatable="false">Title</string>
+    <string name="initial_dialog_message" translatable="false">Message</string>
+    <string name="initial_dialog_button1" translatable="false">button1</string>
+    <string name="initial_dialog_button2" translatable="false">button2</string>
+    <string name="initial_dialog_button3" translatable="false">button3</string>
 
-    <string name="title_activity_new_game__no_time">NewGame_NoTime</string>
 </resources>

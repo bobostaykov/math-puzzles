@@ -4,8 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#f9f3ff"
-    tools:context=".Settings">
+    android:background="@drawable/background_settings"
+    tools:context=".activity.Settings">
 
     <Spinner
         android:id="@+id/language_spinner"
@@ -19,13 +19,17 @@
 
     <Button
         android:id="@+id/sett_back_btn"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="110dp"
+        android:layout_height="40dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="53dp"
+        android:background="@drawable/mybutton"
+        android:fontFamily="casual"
+        android:foreground="?attr/selectableItemBackground"
         android:onClick="backToMain"
-        android:text="@string/back_button" />
+        android:text="@string/done" />
 
     <TextView
         android:id="@+id/language_label"
@@ -35,8 +39,9 @@
         android:layout_marginTop="40dp"
         android:fontFamily="casual"
         android:text="@string/lang_label"
-        android:textColor="#000000"
-        android:textSize="20sp" />
+        android:textColor="@color/colorSettingsText"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Switch
         android:id="@+id/sound_switch"
@@ -49,7 +54,9 @@
         android:fontFamily="casual"
         android:text="@string/sound_label"
         android:textAppearance="@android:style/TextAppearance.Material.Small"
-        android:textSize="20sp" />
+        android:textColor="@color/colorSettingsText"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
     <Switch
         android:id="@+id/time_switch"
@@ -61,6 +68,8 @@
         android:layout_marginTop="60dp"
         android:fontFamily="casual"
         android:text="@string/forTime_label"
-        android:textSize="20sp" />
+        android:textColor="@color/colorSettingsText"
+        android:textSize="20sp"
+        android:textStyle="bold" />
 
 </RelativeLayout>

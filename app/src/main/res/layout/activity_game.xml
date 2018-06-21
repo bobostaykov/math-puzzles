@@ -3,9 +3,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#ffda35"
+    android:background="@drawable/background_game"
     android:orientation="vertical"
-    tools:context=".Game">
+    tools:context=".activity.Game">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,18 +19,22 @@
             android:layout_height="wrap_content"
             android:fontFamily="casual"
             android:text="@string/time"
-            android:textSize="45sp" />
+            android:textColor="@color/colorMainText"
+            android:textSize="45sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/timer"
-            android:layout_width="wrap_content"
+            android:layout_width="130dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/timeText"
             android:fontFamily="casual"
             android:text="@string/initial_time"
-            android:textSize="45sp" />
+            android:textColor="@color/colorMainText"
+            android:textSize="45sp"
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -66,7 +70,9 @@
             android:layout_marginStart="20dp"
             android:fontFamily="casual"
             android:text="@string/moves_count"
-            android:textSize="45sp" />
+            android:textColor="@color/colorTextLight"
+            android:textSize="45sp"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/moves_number"
@@ -76,7 +82,9 @@
             android:layout_toEndOf="@+id/movesText"
             android:fontFamily="casual"
             android:text="@string/initial_moves_count"
+            android:textColor="@color/colorTextLight"
             android:textSize="45sp"
+            android:textStyle="bold"
             tools:text="0" />
 
     </RelativeLayout>
@@ -90,20 +98,28 @@
 
         <Button
             android:id="@+id/backToNG"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="15dp"
+            android:layout_height="40dp"
+            android:layout_marginEnd="20dp"
             android:layout_weight="1"
+            android:background="@drawable/mybutton"
+            android:fontFamily="casual"
+            android:foreground="?attr/selectableItemBackground"
             android:minLines="1"
             android:onClick="back"
             android:text="@string/change_level" />
 
         <Button
             android:id="@+id/tryAgain"
+            style="@style/Widget.AppCompat.Button.Colored"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="15dp"
+            android:layout_height="40dp"
+            android:layout_marginStart="20dp"
             android:layout_weight="1"
+            android:background="@drawable/mybutton"
+            android:fontFamily="casual"
+            android:foreground="?attr/selectableItemBackground"
             android:onClick="restartActivity"
             android:text="@string/try_again" />
     </TableRow>

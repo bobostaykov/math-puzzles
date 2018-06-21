@@ -7,10 +7,9 @@ import android.content.IntentFilter;
 import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
-import android.inputmethodservice.Keyboard;
 import android.media.AudioManager;
-import android.media.MediaPlayer;
 import android.media.SoundPool;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -127,17 +126,17 @@ public class NewGame extends AppCompatActivity {
         if (!easy_board_btn_chosen) global.playSound(soundPool, soundID);
 
         if (medium_board_btn_chosen) {
-            medium_board_btn.setBackgroundResource(android.R.drawable.btn_default);
+            medium_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             medium_board_btn_chosen = false;
         }
 
         if (hard_board_btn_chosen) {
-            hard_board_btn.setBackgroundResource(android.R.drawable.btn_default);
+            hard_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             hard_board_btn_chosen = false;
         }
 
 
-        easy_board_btn.setBackground(createButtonBorder());
+        easy_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         easy_board_btn_chosen = true;
         //saving the chosen level in the class AllLevels to access it later from Game
         AllLevels.setBoard(Level.EASY);
@@ -150,16 +149,16 @@ public class NewGame extends AppCompatActivity {
         if (!medium_board_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_board_btn_chosen) {
-            easy_board_btn.setBackgroundResource(android.R.drawable.btn_default);
+            easy_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             easy_board_btn_chosen = false;
         }
 
         if (hard_board_btn_chosen) {
-            hard_board_btn.setBackgroundResource(android.R.drawable.btn_default);
+            hard_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             hard_board_btn_chosen = false;
         }
 
-        medium_board_btn.setBackground(createButtonBorder());
+        medium_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         medium_board_btn_chosen = true;
         AllLevels.setBoard(Level.MEDIUM);
     }
@@ -171,16 +170,16 @@ public class NewGame extends AppCompatActivity {
         if (!hard_board_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_board_btn_chosen) {
-            easy_board_btn.setBackgroundResource(android.R.drawable.btn_default);
+            easy_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             easy_board_btn_chosen = false;
         }
 
         if (medium_board_btn_chosen) {
-            medium_board_btn.setBackgroundResource(android.R.drawable.btn_default);
+            medium_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             medium_board_btn_chosen = false;
         }
 
-        hard_board_btn.setBackground(createButtonBorder());
+        hard_board_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         hard_board_btn_chosen = true;
         AllLevels.setBoard(Level.HARD);
     }
@@ -192,16 +191,16 @@ public class NewGame extends AppCompatActivity {
         if (!easy_time_btn_chosen) global.playSound(soundPool, soundID);
 
         if (medium_time_btn_chosen) {
-            medium_time_btn.setBackgroundResource(android.R.drawable.btn_default);
+            medium_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             medium_time_btn_chosen = false;
         }
 
         if (hard_time_btn_chosen) {
-            hard_time_btn.setBackgroundResource(android.R.drawable.btn_default);
+            hard_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             hard_time_btn_chosen = false;
         }
 
-        easy_time_btn.setBackground(createButtonBorder());
+        easy_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         easy_time_btn_chosen = true;
         AllLevels.setTime(Level.EASY);
     }
@@ -213,16 +212,16 @@ public class NewGame extends AppCompatActivity {
         if (!medium_time_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_time_btn_chosen) {
-            easy_time_btn.setBackgroundResource(android.R.drawable.btn_default);
+            easy_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             easy_time_btn_chosen = false;
         }
 
         if (hard_time_btn_chosen) {
-            hard_time_btn.setBackgroundResource(android.R.drawable.btn_default);
+            hard_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             hard_time_btn_chosen = false;
         }
 
-        medium_time_btn.setBackground(createButtonBorder());
+        medium_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         medium_time_btn_chosen = true;
         AllLevels.setTime(Level.MEDIUM);
     }
@@ -234,16 +233,16 @@ public class NewGame extends AppCompatActivity {
         if (!hard_time_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_time_btn_chosen) {
-            easy_time_btn.setBackgroundResource(android.R.drawable.btn_default);
+            easy_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             easy_time_btn_chosen = false;
         }
 
         if (medium_time_btn_chosen) {
-            medium_time_btn.setBackgroundResource(android.R.drawable.btn_default);
+            medium_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             medium_time_btn_chosen = false;
         }
 
-        hard_time_btn.setBackground(createButtonBorder());
+        hard_time_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         hard_time_btn_chosen = true;
         AllLevels.setTime(Level.HARD);
     }
@@ -255,16 +254,16 @@ public class NewGame extends AppCompatActivity {
         if (!easy_math_btn_chosen) global.playSound(soundPool, soundID);
 
         if (medium_math_btn_chosen) {
-            medium_math_btn.setBackgroundResource(android.R.drawable.btn_default);
+            medium_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             medium_math_btn_chosen = false;
         }
 
         if (hard_math_btn_chosen) {
-            hard_math_btn.setBackgroundResource(android.R.drawable.btn_default);
+            hard_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             hard_math_btn_chosen = false;
         }
 
-        easy_math_btn.setBackground(createButtonBorder());
+        easy_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         easy_math_btn_chosen = true;
         AllLevels.setMath(Level.EASY);
     }
@@ -276,16 +275,16 @@ public class NewGame extends AppCompatActivity {
         if (!medium_math_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_math_btn_chosen) {
-            easy_math_btn.setBackgroundResource(android.R.drawable.btn_default);
+            easy_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             easy_math_btn_chosen = false;
         }
 
         if (hard_math_btn_chosen) {
-            hard_math_btn.setBackgroundResource(android.R.drawable.btn_default);
+            hard_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             hard_math_btn_chosen = false;
         }
 
-        medium_math_btn.setBackground(createButtonBorder());
+        medium_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         medium_math_btn_chosen = true;
         AllLevels.setMath(Level.MEDIUM);
     }
@@ -297,16 +296,16 @@ public class NewGame extends AppCompatActivity {
         if (!hard_math_btn_chosen) global.playSound(soundPool, soundID);
 
         if (easy_math_btn_chosen) {
-            easy_math_btn.setBackgroundResource(android.R.drawable.btn_default);
+            easy_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             easy_math_btn_chosen = false;
         }
 
         if (medium_math_btn_chosen) {
-            medium_math_btn.setBackgroundResource(android.R.drawable.btn_default);
+            medium_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorAccent));
             medium_math_btn_chosen = false;
         }
 
-        hard_math_btn.setBackground(createButtonBorder());
+        hard_math_btn.setBackgroundTintList(ContextCompat.getColorStateList(this, R.color.colorButtonChosen));
         hard_math_btn_chosen = true;
         AllLevels.setMath(Level.HARD);
     }

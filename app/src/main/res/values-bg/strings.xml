@@ -8,7 +8,6 @@
     <string name="math_problems_label">Задачи</string>
     <string name="hard_button">Трудно</string>
     <string name="start_button">Започни!</string>
-    <string name="back_button">Назад</string>
     <string name="choose_level">Моля избери ниво</string>
     <string name="moves_count">Ходове:</string>
     <string name="easy_button">Лесно</string>
@@ -24,9 +23,12 @@
     <string name="you_won">Ти спечели!</string>
     <string name="change_level">Промени нивото</string>
     <string name="try_another">Пробвай друго</string>
-    <string name="youWon_dialog_text">Честито! Ходове: %1d,\nВреме %02d:%02d</string>
+    <string name="youWon_dialog_text_with_time">Честито! Ходове: %1d,\nВреме %02d:%02d</string>
+    <string name="youWon_dialog_text_no_time">Честито! Ходове: %1d</string>
     <string name="exit">Излез</string>
     <string name="sound_label">Звук</string>
     <string name="time">Време:</string>
     <string name="forTime_label">Играй за време</string>
+    <string name="done">Готово</string>
+    <string name="back_to_main">Меню</string>
 </resources>

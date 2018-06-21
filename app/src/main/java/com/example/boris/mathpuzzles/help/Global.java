@@ -2,14 +2,24 @@ package com.example.boris.mathpuzzles.help;
 
 import android.app.AlertDialog;
 import android.app.Application;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.res.Configuration;
 import android.content.res.Resources;
+import android.graphics.Typeface;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.util.DisplayMetrics;
+import android.util.TypedValue;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.example.boris.mathpuzzles.R;
+import com.example.boris.mathpuzzles.activity.Game;
 import com.example.boris.mathpuzzles.activity.Settings;
 
 import java.util.Locale;
@@ -20,6 +30,8 @@ public class Global extends Application {
     private static Application instance;
     private static int boardColumns;
     private static Context gameContext;
+    private static int screenHeight;
+    private static int screenWidth;
 
     @Override
     public void onCreate() {
@@ -55,20 +67,50 @@ public class Global extends Application {
         return gameContext;
     }
 
+    public static void setScreenSize(int height, int width) {
+        screenHeight = height;
+        screenWidth = width;
+    }
 
-    public static void createDialog(int dialogTitle, String dialogText, int negativeButton, DialogInterface.OnClickListener whatToDoWhenNeg, int neutralButton, DialogInterface.OnClickListener whatToDoWhenNeut, int positiveButton, DialogInterface.OnClickListener whatToDoWhenPos) {
-        AlertDialog.Builder builder;
-        builder = new AlertDialog.Builder(gameContext);
-        builder.setTitle(dialogTitle)
-                .setMessage(dialogText)
-                .setNegativeButton(negativeButton, whatToDoWhenNeg)
-                .setPositiveButton(positiveButton, whatToDoWhenPos);
-        //.setIcon(android.R.drawable.ic_dialog_alert)
-        if (neutralButton != -1) builder.setNeutralButton(neutralButton, whatToDoWhenNeut);
-        AlertDialog dialog = builder.create();
+
+    public static void createDialog(int dialogTitle, String dialogMessage, int negativeButton, View.OnClickListener whatToDoWhenNeg, int neutralButton, View.OnClickListener whatToDoWhenNeut, int positiveButton, View.OnClickListener whatToDoWhenPos) {
+
+        Dialog dialog = new Dialog(gameContext);
+        dialog.setContentView(R.layout.dialog_layout);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
         dialog.show();
+
+        dialog.getWindow().setBackgroundDrawableResource(R.drawable.mydialog);
+        double dialogWidth = screenWidth*0.85;
+        double dialogHeight = dialogWidth*0.83;
+        dialog.getWindow().setLayout((int) dialogWidth, (int) dialogHeight);
+
+        TextView title = dialog.findViewById(R.id.dialog_title);
+        title.setText(dialogTitle);
+        title.setTypeface(Typeface.create("casual", Typeface.BOLD));
+        title.setTextColor(Global.getGlobalResources().getColor(R.color.colorMainText));
+
+        TextView message = dialog.findViewById(R.id.dialog_message);
+        message.setText(dialogMessage);
+        message.setTypeface(Typeface.create("casual", Typeface.NORMAL));
+        message.setTextColor(Global.getGlobalResources().getColor(R.color.colorMainText));
+
+        Button positive = dialog.findViewById(R.id.dialog_positive_btn);
+        positive.setText(positiveButton);
+        positive.setTypeface(Typeface.create("casual", Typeface.BOLD));
+        positive.setOnClickListener(whatToDoWhenPos);
+
+        Button neutral = dialog.findViewById(R.id.dialog_neutral_btn);
+        neutral.setText(neutralButton);
+        neutral.setTypeface(Typeface.create("casual", Typeface.BOLD));
+        neutral.setOnClickListener(whatToDoWhenNeut);
+
+        Button negative = dialog.findViewById(R.id.dialog_negative_btn);
+        negative.setText(negativeButton);
+        negative.setTypeface(Typeface.create("casual", Typeface.BOLD));
+        negative.setOnClickListener(whatToDoWhenNeg);
+
     }
 
     public static void setLocale(String lang) {
