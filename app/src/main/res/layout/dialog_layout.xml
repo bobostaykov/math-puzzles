@@ -12,7 +12,9 @@
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
         android:layout_marginTop="20dp"
+        android:fontFamily="casual"
         android:text="@string/initial_dialog_title"
+        android:textColor="@color/colorMainText"
         android:textSize="23sp"
         android:textStyle="bold" />
 
@@ -23,7 +25,9 @@
         android:layout_marginBottom="20dp"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
+        android:fontFamily="casual"
         android:text="@string/initial_dialog_message"
+        android:textColor="@color/colorMainText"
         android:textSize="18sp" />
 
     <Button
@@ -34,7 +38,9 @@
         android:layout_gravity="end"
         android:layout_marginEnd="20dp"
         android:layout_marginStart="20dp"
-        android:text="@string/initial_dialog_button1" />
+        android:fontFamily="casual"
+        android:text="@string/initial_dialog_button1"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/dialog_neutral_btn"
@@ -43,7 +49,9 @@
         android:layout_height="wrap_content"
         android:layout_gravity="end"
         android:layout_marginEnd="20dp"
-        android:text="@string/initial_dialog_button2" />
+        android:fontFamily="casual"
+        android:text="@string/initial_dialog_button2"
+        android:textStyle="bold" />
 
     <Button
         android:id="@+id/dialog_negative_btn"
@@ -51,6 +59,10 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end"
+        android:layout_marginBottom="10dp"
         android:layout_marginEnd="20dp"
-        android:text="@string/initial_dialog_button3" />
+        android:fontFamily="casual"
+        android:text="@string/initial_dialog_button3"
+        android:textStyle="bold" />
+
 </LinearLayout>

@@ -40,6 +40,15 @@
     <string name="bg_lang">Bulgarian</string>
     <string name="sound_label">Sound</string>
     <string name="forTime_label">Play for time</string>
+    <string name="button_theme_label">Button theme</string>
+    <string name="button_theme_light">Light</string>
+    <string name="button_theme_dark">Dark</string>
+    <string name="toast_sound_on">Sound on</string>
+    <string name="toast_sound_off">Sound off</string>
+    <string name="toast_time_on">Time on</string>
+    <string name="toast_time_off">Time off</string>
+    <string name="toast_theme_dark">Button theme dark</string>
+    <string name="toast_theme_light">Button theme light</string>
     <string name="done">Done</string>
 
     <string name="initial_dialog_title" translatable="false">Title</string>

@@ -14,6 +14,7 @@ import android.util.DisplayMetrics;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -32,11 +33,13 @@ public class Global extends Application {
     private static Context gameContext;
     private static int screenHeight;
     private static int screenWidth;
+    private static boolean buttonThemeDark;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
+        buttonThemeDark = true;
     }
 
     public static Context getContext() {
@@ -72,6 +75,22 @@ public class Global extends Application {
         screenWidth = width;
     }
 
+    public static int getScreenWidth() {
+        return screenWidth;
+    }
+
+    public static int getScreenHeight() {
+        return screenHeight;
+    }
+
+    public static void setButtonThemeDark(boolean dark) {
+        buttonThemeDark = dark;
+    }
+
+    public static boolean getButtonThemeDark() {
+        return buttonThemeDark;
+    }
+
 
     public static void createDialog(int dialogTitle, String dialogMessage, int negativeButton, View.OnClickListener whatToDoWhenNeg, int neutralButton, View.OnClickListener whatToDoWhenNeut, int positiveButton, View.OnClickListener whatToDoWhenPos) {
 
@@ -83,32 +102,25 @@ public class Global extends Application {
 
         dialog.getWindow().setBackgroundDrawableResource(R.drawable.mydialog);
         double dialogWidth = screenWidth*0.85;
-        double dialogHeight = dialogWidth*0.83;
-        dialog.getWindow().setLayout((int) dialogWidth, (int) dialogHeight);
+        //double dialogHeight = dialogWidth*0.83*0;
+        dialog.getWindow().setLayout((int) dialogWidth, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         TextView title = dialog.findViewById(R.id.dialog_title);
         title.setText(dialogTitle);
-        title.setTypeface(Typeface.create("casual", Typeface.BOLD));
-        title.setTextColor(Global.getGlobalResources().getColor(R.color.colorMainText));
 
         TextView message = dialog.findViewById(R.id.dialog_message);
         message.setText(dialogMessage);
-        message.setTypeface(Typeface.create("casual", Typeface.NORMAL));
-        message.setTextColor(Global.getGlobalResources().getColor(R.color.colorMainText));
 
         Button positive = dialog.findViewById(R.id.dialog_positive_btn);
         positive.setText(positiveButton);
-        positive.setTypeface(Typeface.create("casual", Typeface.BOLD));
         positive.setOnClickListener(whatToDoWhenPos);
 
         Button neutral = dialog.findViewById(R.id.dialog_neutral_btn);
         neutral.setText(neutralButton);
-        neutral.setTypeface(Typeface.create("casual", Typeface.BOLD));
         neutral.setOnClickListener(whatToDoWhenNeut);
 
         Button negative = dialog.findViewById(R.id.dialog_negative_btn);
         negative.setText(negativeButton);
-        negative.setTypeface(Typeface.create("casual", Typeface.BOLD));
         negative.setOnClickListener(whatToDoWhenNeg);
 
     }

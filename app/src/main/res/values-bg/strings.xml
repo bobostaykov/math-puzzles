@@ -31,4 +31,13 @@
     <string name="forTime_label">Играй за време</string>
     <string name="done">Готово</string>
     <string name="back_to_main">Меню</string>
+    <string name="button_theme_label">Цвят на бутоните</string>
+    <string name="button_theme_light">Светъл</string>
+    <string name="button_theme_dark">Тъмен</string>
+    <string name="toast_sound_on">Звук включен</string>
+    <string name="toast_sound_off">Звук изключен</string>
+    <string name="toast_time_on">За време</string>
+    <string name="toast_time_off">Без време</string>
+    <string name="toast_theme_dark">Цвят на бутоните тъмен</string>
+    <string name="toast_theme_light">Цвят на бутоните светъл</string>
 </resources>

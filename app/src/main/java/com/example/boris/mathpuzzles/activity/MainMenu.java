@@ -6,14 +6,14 @@ import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 
 import com.example.boris.mathpuzzles.R;
 import com.example.boris.mathpuzzles.help.Global;
 
 public class MainMenu extends AppCompatActivity {
 
-    private static boolean localeChanged = false;
-    private static boolean soundSettingChanged = false;
+    private static boolean localeChanged = false, soundSettingChanged = false, themeChanged = false;
     private SoundPool soundPool;
     private int soundID = 0;
     private Global global = new Global();
@@ -26,6 +26,9 @@ public class MainMenu extends AppCompatActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
         if (Settings.getSoundOn()) soundID = soundPool.load(this, R.raw.button_click_1, 1);
+
+        if (Global.getButtonThemeDark()) applyDarkTheme();
+        else applyLightTheme();
     }
 
 
@@ -34,9 +37,10 @@ public class MainMenu extends AppCompatActivity {
         super.onResume();
         hideNavStatBar();
         //otherwise the changed language does not appear in the main activity
-        if (localeChanged || soundSettingChanged) {
+        if (localeChanged || soundSettingChanged || themeChanged) {
             localeChanged = false;
             soundSettingChanged = false;
+            themeChanged = false;
             restartMain();
         }
     }
@@ -92,6 +96,41 @@ public class MainMenu extends AppCompatActivity {
 
     public static void setSoundSettingChanged() {
         soundSettingChanged = true;
+    }
+
+
+    public static void setThemeChanged() {
+        themeChanged = true;
+    }
+
+
+    private void applyDarkTheme() {
+        Button button1 = findViewById(R.id.new_game_btn);
+        button1.setTextColor(getResources().getColor(R.color.white));
+        button1.setBackgroundResource(R.drawable.mybutton_dark);
+
+        Button button2 = findViewById(R.id.settings_btn);
+        button2.setTextColor(getResources().getColor(R.color.white));
+        button2.setBackgroundResource(R.drawable.mybutton_dark);
+
+        Button button3 = findViewById(R.id.exit_btn);
+        button3.setTextColor(getResources().getColor(R.color.white));
+        button3.setBackgroundResource(R.drawable.mybutton_dark);
+    }
+
+
+    private void applyLightTheme() {
+        Button button1 = findViewById(R.id.new_game_btn);
+        button1.setTextColor(getResources().getColor(R.color.colorAccent));
+        button1.setBackgroundResource(R.drawable.mybutton_light);
+
+        Button button2 = findViewById(R.id.settings_btn);
+        button2.setTextColor(getResources().getColor(R.color.colorAccent));
+        button2.setBackgroundResource(R.drawable.mybutton_light);
+
+        Button button3 = findViewById(R.id.exit_btn);
+        button3.setTextColor(getResources().getColor(R.color.colorAccent));
+        button3.setBackgroundResource(R.drawable.mybutton_light);
     }
 
 

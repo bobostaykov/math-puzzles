@@ -46,6 +46,9 @@ public class Game extends AppCompatActivity {
         setContentView(R.layout.activity_game);
         hideNavStatBar();
 
+        if (Global.getButtonThemeDark()) applyDarkTheme();
+        else applyLightTheme();
+
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
         int screenHeight = displayMetrics.heightPixels;
@@ -223,7 +226,32 @@ public class Game extends AppCompatActivity {
         finish();
     }
 
-    //TODO: shape, color and font of win and lose dialogs
+
+    private void applyDarkTheme() {
+        Button button1 = findViewById(R.id.backToNG);
+        button1.setTextColor(getResources().getColor(R.color.white));
+        button1.setBackgroundResource(R.drawable.mybutton_dark);
+
+        Button button2 = findViewById(R.id.tryAgain);
+        button2.setTextColor(getResources().getColor(R.color.white));
+        button2.setBackgroundResource(R.drawable.mybutton_dark);
+    }
+
+
+    private void applyLightTheme() {
+        Button button1 = findViewById(R.id.backToNG);
+        button1.setTextColor(getResources().getColor(R.color.colorAccent));
+        button1.setBackgroundResource(R.drawable.mybutton_light);
+
+        Button button2 = findViewById(R.id.tryAgain);
+        button2.setTextColor(getResources().getColor(R.color.colorAccent));
+        button2.setBackgroundResource(R.drawable.mybutton_light);
+    }
+
+
+
+    //TODO: add lines between settings and toasts for every setting changed
+    //TODO: fix logo
     //TODO: create the math problems (images)
     //TODO: create the app icon
     //TODO: save info to database (Firebase)

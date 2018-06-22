@@ -63,11 +63,12 @@
             android:layout_height="40dp"
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="easyBoard"
-            android:text="@string/easy_button" />
+            android:text="@string/easy_button"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/medium_board_btn"
@@ -77,11 +78,12 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="mediumBoard"
-            android:text="@string/medium_button" />
+            android:text="@string/medium_button"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/hard_board_btn"
@@ -90,11 +92,12 @@
             android:layout_height="40dp"
             android:layout_marginStart="6dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="hardBoard"
-            android:text="@string/hard_button" />
+            android:text="@string/hard_button"
+            android:textColor="@color/colorAccent" />
     </TableRow>
 
     <TableRow
@@ -131,11 +134,12 @@
             android:layout_height="40dp"
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="easyMath"
-            android:text="@string/easy_button" />
+            android:text="@string/easy_button"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/medium_math_btn"
@@ -145,11 +149,12 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="mediumMath"
-            android:text="@string/medium_button" />
+            android:text="@string/medium_button"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/hard_math_btn"
@@ -158,11 +163,12 @@
             android:layout_height="40dp"
             android:layout_marginStart="6dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="hardMath"
-            android:text="@string/hard_button" />
+            android:text="@string/hard_button"
+            android:textColor="@color/colorAccent" />
     </TableRow>
 
     <TableRow
@@ -201,11 +207,12 @@
             android:layout_height="40dp"
             android:layout_marginEnd="6dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="easyTime"
-            android:text="@string/easy_button" />
+            android:text="@string/easy_button"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/medium_time_btn"
@@ -215,11 +222,12 @@
             android:layout_marginEnd="10dp"
             android:layout_marginStart="10dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="mediumTime"
-            android:text="@string/medium_button" />
+            android:text="@string/medium_button"
+            android:textColor="@color/colorAccent" />
 
         <Button
             android:id="@+id/hard_time_btn"
@@ -228,11 +236,12 @@
             android:layout_height="40dp"
             android:layout_marginStart="6dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="hardTime"
-            android:text="@string/hard_button" />
+            android:text="@string/hard_button"
+            android:textColor="@color/colorAccent" />
     </TableRow>
 
     <TableRow
@@ -248,11 +257,12 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="backToMainActivity"
             android:text="@string/back_to_main"
+            android:textColor="@color/colorAccent"
             tools:layout_editor_absoluteX="41dp"
             tools:layout_editor_absoluteY="20dp" />
 
@@ -267,11 +277,12 @@
             android:layout_width="match_parent"
             android:layout_height="40dp"
             android:layout_weight="1"
-            android:background="@drawable/mybutton"
+            android:background="@drawable/mybutton_light"
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="switchToGameActivity"
             android:text="@string/start_button"
+            android:textColor="@color/colorAccent"
             tools:layout_editor_absoluteX="191dp"
             tools:layout_editor_absoluteY="23dp" />
 
