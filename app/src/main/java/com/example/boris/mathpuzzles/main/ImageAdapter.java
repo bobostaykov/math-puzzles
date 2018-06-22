@@ -33,9 +33,9 @@ public class ImageAdapter extends BaseAdapter {
         this.movesNumber = movesNumber;
         this.timer = timer;
         this.game = game;
-        this.soundPool = soundPool;
+        //this.soundPool = soundPool;
         Global.setBoardColumns(columns);
-        puzzle = new Puzzle();
+        puzzle = new Puzzle(soundPool);
     }
 
     public int getCount() {
@@ -73,7 +73,7 @@ public class ImageAdapter extends BaseAdapter {
         game_board.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                puzzle.moveItemGroup(puzzle.getItem(position), movesNumber, timer, game, soundPool);
+                puzzle.moveItemGroup(puzzle.getItem(position), movesNumber, timer, game);
             }
         });
 

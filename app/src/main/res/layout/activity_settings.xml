@@ -122,6 +122,7 @@
         android:fontFamily="casual"
         android:foreground="?attr/selectableItemBackground"
         android:onClick="backToMain"
+        android:paddingTop="2dp"
         android:text="@string/done"
         android:textColor="@color/colorAccent" />
 

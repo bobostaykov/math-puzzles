@@ -25,19 +25,18 @@ import java.util.Collections;
 
 public class Puzzle {
 
-    private int blankPosition, boardColumns, movesCount;
+    private int blankPosition, boardColumns, movesCount, soundIdSlide, soundIdWin, soundIdButton;
     private ArrayList<PuzzleItem> items = new ArrayList<>();
     private Game gameObj = new Game();
     private Game game;
     private Global global = new Global();
     private boolean timerStarted = false;
-    private static int minutesPassed;
-    private static int secondsPassed;
+    private static int minutesPassed, secondsPassed;
+    private SoundPool soundPool;
 
 
-    public Puzzle() {
+    public Puzzle(SoundPool soundPool) {
         boardColumns = Global.getBoardColumns();
-        //importItemsToList();
 
         ImageView image = new ImageView(Global.getContext());
         image.setImageResource(R.drawable.sheet1);
@@ -45,6 +44,11 @@ public class Puzzle {
 
         shuffleItems();
         movesCount = 0;
+
+        this.soundPool = soundPool;
+        soundIdSlide = soundPool.load(Global.getContext(), R.raw.slide_sound_2, 2);
+        soundIdWin = soundPool.load(Global.getContext(), R.raw.win_sound, 1);
+        soundIdButton = soundPool.load(Global.getContext(), R.raw.button_click_1, 1);
     }
 
 
@@ -260,24 +264,15 @@ public class Puzzle {
     }
 
 
-    public void moveItemGroup(PuzzleItem item, TextView movesNumber, CountDownTimer timer, final Game game, final SoundPool soundPool) {
+    public void moveItemGroup(PuzzleItem item, TextView movesNumber, CountDownTimer timer, final Game game) {
         this.game = game;
 
         //clicked item
         int index = item.getCurrentIndex();
         int newMoves = 0;
-        final int soundIdSlide = soundPool.load(game, R.raw.slide_sound_2, 2);
-        final int soundIdWin = soundPool.load(game, R.raw.win_sound, 1);
-        final int soundIdButton = soundPool.load(game, R.raw.button_click_1, 1);
         final PuzzleItem itemCopy = item;
 
-        game.setVolumeControlStream(AudioManager.STREAM_MUSIC);
-        soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-            @Override
-            public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                if (Settings.getSoundOn() && rowColumn(itemCopy) != 0) global.playSound(soundPool, soundIdSlide);
-            }
-        });
+        if (Settings.getSoundOn() && rowColumn(itemCopy) != 0) global.playSound(soundPool, soundIdSlide);
 
         switch (rowColumn(item)) {
             case 1: {
@@ -347,12 +342,7 @@ public class Puzzle {
 
         if (isSolved()) {
 
-            soundPool.setOnLoadCompleteListener(new SoundPool.OnLoadCompleteListener() {
-                @Override
-                public void onLoadComplete(SoundPool soundPool, int sampleId, int status) {
-                    if (Settings.getSoundOn() && rowColumn(itemCopy) != 0) global.playSound(soundPool, soundIdWin);
-                }
-            });
+            if (Settings.getSoundOn()) global.playSound(soundPool, soundIdWin);
 
             timer.cancel();
 

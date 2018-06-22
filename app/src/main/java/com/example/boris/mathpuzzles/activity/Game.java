@@ -31,13 +31,10 @@ public class Game extends AppCompatActivity {
     private GridView game_board;
     private TextView moves_number, timerView, timeText;
     private CountDownTimer timer;
-    private int timePassed = 0;
     private Game game = this;
     private Context context = this;
-    private int boardColumns;
     private SoundPool soundPool;
-    private int soundIdButton = 0;
-    private int soundIdLose = 0;
+    private int boardColumns, timePassed = 0, soundIdButton = 0, soundIdLose = 0;
     private Global global = new Global();
 
     @Override
@@ -250,8 +247,6 @@ public class Game extends AppCompatActivity {
 
 
 
-    //TODO: add lines between settings and toasts for every setting changed
-    //TODO: fix logo
     //TODO: create the math problems (images)
     //TODO: create the app icon
     //TODO: save info to database (Firebase)

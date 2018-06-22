@@ -76,7 +76,7 @@
 
         <TextView
             android:id="@+id/moves_number"
-            android:layout_width="77dp"
+            android:layout_width="90dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_toEndOf="@+id/movesText"
@@ -84,8 +84,7 @@
             android:text="@string/initial_moves_count"
             android:textColor="@color/colorTextLight"
             android:textSize="45sp"
-            android:textStyle="bold"
-            tools:text="0" />
+            android:textStyle="bold" />
 
     </RelativeLayout>
 
@@ -108,6 +107,7 @@
             android:foreground="?attr/selectableItemBackground"
             android:minLines="1"
             android:onClick="back"
+            android:paddingTop="2dp"
             android:text="@string/change_level"
             android:textColor="@color/colorAccent" />
 
@@ -122,6 +122,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="restartActivity"
+            android:paddingTop="2dp"
             android:text="@string/try_again"
             android:textColor="@color/colorAccent" />
     </TableRow>

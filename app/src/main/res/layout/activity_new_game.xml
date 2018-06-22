@@ -67,6 +67,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="easyBoard"
+            android:paddingTop="2dp"
             android:text="@string/easy_button"
             android:textColor="@color/colorAccent" />
 
@@ -82,6 +83,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="mediumBoard"
+            android:paddingTop="2dp"
             android:text="@string/medium_button"
             android:textColor="@color/colorAccent" />
 
@@ -96,6 +98,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="hardBoard"
+            android:paddingTop="2dp"
             android:text="@string/hard_button"
             android:textColor="@color/colorAccent" />
     </TableRow>
@@ -138,6 +141,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="easyMath"
+            android:paddingTop="2dp"
             android:text="@string/easy_button"
             android:textColor="@color/colorAccent" />
 
@@ -153,6 +157,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="mediumMath"
+            android:paddingTop="2dp"
             android:text="@string/medium_button"
             android:textColor="@color/colorAccent" />
 
@@ -167,6 +172,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="hardMath"
+            android:paddingTop="2dp"
             android:text="@string/hard_button"
             android:textColor="@color/colorAccent" />
     </TableRow>
@@ -211,6 +217,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="easyTime"
+            android:paddingTop="2dp"
             android:text="@string/easy_button"
             android:textColor="@color/colorAccent" />
 
@@ -226,6 +233,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="mediumTime"
+            android:paddingTop="2dp"
             android:text="@string/medium_button"
             android:textColor="@color/colorAccent" />
 
@@ -240,6 +248,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="hardTime"
+            android:paddingTop="2dp"
             android:text="@string/hard_button"
             android:textColor="@color/colorAccent" />
     </TableRow>
@@ -261,6 +270,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="backToMainActivity"
+            android:paddingTop="2dp"
             android:text="@string/back_to_main"
             android:textColor="@color/colorAccent"
             tools:layout_editor_absoluteX="41dp"
@@ -281,6 +291,7 @@
             android:fontFamily="casual"
             android:foreground="?attr/selectableItemBackground"
             android:onClick="switchToGameActivity"
+            android:paddingTop="2dp"
             android:text="@string/start_button"
             android:textColor="@color/colorAccent"
             tools:layout_editor_absoluteX="191dp"
