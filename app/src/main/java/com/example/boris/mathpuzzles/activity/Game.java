@@ -247,8 +247,6 @@ public class Game extends AppCompatActivity {
 
 
 
-    //TODO: create the app icon
-    //TODO: add "rate" icon on main screen
     //TODO: create the math problems (images)
     //TODO: save info to database (Firebase)
     //TODO: final inspection - remove unused methods (organize the rest) and imports, review warnings and write comments

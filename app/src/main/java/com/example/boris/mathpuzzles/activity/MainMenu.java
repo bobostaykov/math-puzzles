@@ -3,10 +3,12 @@ package com.example.boris.mathpuzzles.activity;
 import android.content.Intent;
 import android.media.AudioManager;
 import android.media.SoundPool;
+import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.Toast;
 
 import com.example.boris.mathpuzzles.R;
 import com.example.boris.mathpuzzles.help.Global;
@@ -131,6 +133,13 @@ public class MainMenu extends AppCompatActivity {
         Button button3 = findViewById(R.id.exit_btn);
         button3.setTextColor(getResources().getColor(R.color.colorAccent));
         button3.setBackgroundResource(R.drawable.mybutton_light);
+    }
+
+
+    public void goToGameUrl(View v) {
+        Toast.makeText(this, R.string.toast_rate, Toast.LENGTH_LONG).show();
+        Intent browse = new Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=com.android.chrome"));
+        startActivity(browse);
     }
 
 

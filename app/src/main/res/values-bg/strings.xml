@@ -40,4 +40,5 @@
     <string name="toast_time_off">Без време</string>
     <string name="toast_theme_dark">Цвят на бутоните тъмен</string>
     <string name="toast_theme_light">Цвят на бутоните светъл</string>
+    <string name="toast_rate">Оцени играта</string>
 </resources>
