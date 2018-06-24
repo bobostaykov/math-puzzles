@@ -2,6 +2,7 @@ package com.example.boris.mathpuzzles.activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -91,7 +92,6 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 global.playSound(soundPool, buttonSoundID);
-                MainMenu.setSoundSettingChanged();
                 if (isChecked) {
                     sound_on = true;
                     Toast.makeText(Settings.this, R.string.toast_sound_on, Toast.LENGTH_SHORT).show();
@@ -101,6 +101,8 @@ public class Settings extends AppCompatActivity {
                     Toast.makeText(Settings.this, R.string.toast_sound_off, Toast.LENGTH_SHORT).show();
                     buttonSoundID = 0;
                 }
+                updateSavedSettings();
+                MainMenu.setSoundSettingChanged();
             }
         });
 
@@ -117,8 +119,10 @@ public class Settings extends AppCompatActivity {
                     forTime_on = false;
                     Toast.makeText(Settings.this, R.string.toast_time_off, Toast.LENGTH_SHORT).show();
                 }
+                updateSavedSettings();
             }
         });
+
 
         languageSpinner = findViewById(R.id.language_spinner);
 
@@ -157,21 +161,19 @@ public class Settings extends AppCompatActivity {
                 if (!isLangSpinnerTouched) return;
                 global.playSound(soundPool, buttonSoundID);
 
-                if (parent.getItemAtPosition(position).equals(getString(R.string.en_lang)) && !getResources().getConfiguration().locale.toString().equalsIgnoreCase("en_gb")) {
-                    Toast.makeText(parent.getContext(), "Language changed to English", Toast.LENGTH_SHORT).show();
+                if (parent.getItemAtPosition(position).equals(getString(R.string.en_lang)) && !getResources().getConfiguration().locale.toString().equalsIgnoreCase("en_gb"))
                     setLocale("en_gb");
-                }
 
-                if (parent.getItemAtPosition(position).equals(getString(R.string.de_lang)) && !getResources().getConfiguration().locale.toString().equals("de")) {
-                    Toast.makeText(parent.getContext(), "Sprache auf Deutsch gesetzt", Toast.LENGTH_SHORT).show();
+                if (parent.getItemAtPosition(position).equals(getString(R.string.de_lang)) && !getResources().getConfiguration().locale.toString().equals("de"))
                     setLocale("de");
-                }
 
-                if (parent.getItemAtPosition(position).equals(getString(R.string.bg_lang)) && !getResources().getConfiguration().locale.toString().equals("bg")) {
-                    Toast.makeText(parent.getContext(), "Избран език български", Toast.LENGTH_SHORT).show();
+                if (parent.getItemAtPosition(position).equals(getString(R.string.bg_lang)) && !getResources().getConfiguration().locale.toString().equals("bg"))
                     setLocale("bg");
-                }
+
+                Toast.makeText(Settings.this, getString(R.string.toast_language_changed), Toast.LENGTH_SHORT).show();
                 MainMenu.setLocaleChanged();
+                updateSavedSettings();
+                restartActivity();
             }
 
             @Override
@@ -219,6 +221,7 @@ public class Settings extends AppCompatActivity {
                 }
 
                 MainMenu.setThemeChanged();
+                updateSavedSettings();
                 restartActivity();
             }
 
@@ -228,22 +231,22 @@ public class Settings extends AppCompatActivity {
             }
         });
 
+        setLocale(Global.getLocale());
+
     }
 
 
     //setting new locale
     public void setLocale(String lang) {
         locale = new Locale(lang);
-        Resources res = getResources();
+        Resources res;
+        res = getResources();
         DisplayMetrics dm = res.getDisplayMetrics();
         Configuration conf = res.getConfiguration();
         conf.locale = locale;
         res.updateConfiguration(conf, dm);
 
         Global.setLocale(lang);
-
-        //restarting activity so the changes take effect here as well
-        restartActivity();
     }
 
 
@@ -279,8 +282,18 @@ public class Settings extends AppCompatActivity {
     }
 
 
+    public void setSoundOn(boolean on) {
+        sound_on = on;
+    }
+
+
     public static boolean getForTimeOn() {
         return forTime_on;
+    }
+
+
+    public void setForTimeOn(boolean on) {
+        forTime_on = on;
     }
 
 
@@ -288,21 +301,31 @@ public class Settings extends AppCompatActivity {
         finish();
         Intent refresh = new Intent(this, Settings.class);
         startActivity(refresh);
-        overridePendingTransition(0,0);
+        overridePendingTransition(0, 0);
     }
 
 
-    private void applyDarkTheme() {
+    public void applyDarkTheme() {
         Button button1 = findViewById(R.id.sett_back_btn);
         button1.setTextColor(getResources().getColor(R.color.white));
         button1.setBackgroundResource(R.drawable.mybutton_dark);
     }
 
 
-    private void applyLightTheme() {
+    public void applyLightTheme() {
         Button button1 = findViewById(R.id.sett_back_btn);
         button1.setTextColor(getResources().getColor(R.color.colorAccent));
         button1.setBackgroundResource(R.drawable.mybutton_light);
+    }
+
+
+    private void updateSavedSettings() {
+        SharedPreferences.Editor editor = getSharedPreferences(getString(R.string.shared_prefs_file_name), Context.MODE_PRIVATE).edit();
+        editor.putString(getString(R.string.key_locale), Global.getLocale());
+        editor.putBoolean(getString(R.string.key_sound), sound_on);
+        editor.putBoolean(getString(R.string.key_time), forTime_on);
+        editor.putBoolean(getString(R.string.key_theme), Global.getButtonThemeDark());
+        editor.apply();
     }
 
 }

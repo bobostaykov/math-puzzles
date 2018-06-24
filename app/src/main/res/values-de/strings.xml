@@ -34,11 +34,12 @@
     <string name="button_theme_label">Druckknopffarbe</string>
     <string name="button_theme_light">Hell</string>
     <string name="button_theme_dark">Dunkel</string>
+    <string name="toast_language_changed">Sprache auf Deutsch gesetzt</string>
     <string name="toast_sound_on">Klänge ein</string>
     <string name="toast_sound_off">Klänge aus</string>
     <string name="toast_time_on">Zeit ein</string>
     <string name="toast_time_off">Zeit aus</string>
     <string name="toast_theme_dark">Druckknopffarbe dunkel</string>
     <string name="toast_theme_light">Druckknopffarbe hell</string>
-    <string name="toast_rate">Bewerte die App</string>
+    <string name="toast_rate">App bewerten</string>
 </resources>

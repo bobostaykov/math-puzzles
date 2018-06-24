@@ -5,6 +5,7 @@ import android.app.Application;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Typeface;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 
 import com.example.boris.mathpuzzles.R;
 import com.example.boris.mathpuzzles.activity.Game;
+import com.example.boris.mathpuzzles.activity.MainMenu;
 import com.example.boris.mathpuzzles.activity.Settings;
 
 import java.util.Locale;
@@ -29,17 +31,19 @@ import java.util.Locale;
 public class Global extends Application {
 
     private static Application instance;
-    private static int boardColumns;
+    private static int boardColumns, screenHeight, screenWidth;
     private static Context gameContext;
-    private static int screenHeight;
-    private static int screenWidth;
     private static boolean buttonThemeDark;
+    private static String locale;
 
     @Override
     public void onCreate() {
         super.onCreate();
         instance = this;
-        buttonThemeDark = true;
+
+//        MainMenu main = new MainMenu();
+//        main.applySavedSettings();
+        applySavedSettings();
     }
 
     public static Context getContext() {
@@ -126,12 +130,11 @@ public class Global extends Application {
     }
 
     public static void setLocale(String lang) {
-        Locale locale = new Locale(lang);
-        Resources res = getGlobalResources();
-        DisplayMetrics dm = res.getDisplayMetrics();
-        Configuration conf = res.getConfiguration();
-        conf.locale = locale;
-        res.updateConfiguration(conf, dm);
+        locale = lang;
+    }
+
+    public static String getLocale() {
+        return locale;
     }
 
     public void playSound(SoundPool soundPool, final int soundID) {
@@ -142,4 +145,16 @@ public class Global extends Application {
         final float volume = actualVolume / maxVolume;
         soundPool.play(soundID, volume, volume, 1, 0, 1f);
     }
+
+
+    public void applySavedSettings() {
+        Settings settings = new Settings();
+        SharedPreferences sharedPrefs = getSharedPreferences(getString(R.string.shared_prefs_file_name), Context.MODE_PRIVATE);
+
+        locale = sharedPrefs.getString(getString(R.string.key_locale), getString(R.string.default_locale));
+        settings.setSoundOn(sharedPrefs.getBoolean(getString(R.string.key_sound), getResources().getBoolean(R.bool.default_sound)));
+        settings.setForTimeOn(sharedPrefs.getBoolean(getString(R.string.key_time), getResources().getBoolean(R.bool.default_time)));
+        Global.setButtonThemeDark(sharedPrefs.getBoolean(getString(R.string.key_theme), getResources().getBoolean(R.bool.default_theme_dark)));
+    }
+
 }

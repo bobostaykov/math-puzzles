@@ -51,18 +51,9 @@ public class NewGame extends AppCompatActivity {
     private boolean medium_math_btn_chosen = false;
     private boolean hard_math_btn_chosen = false;
 
-    private MyReceiver receiver;
     private SoundPool soundPool;
     private int soundID = 0;
     private Global global = new Global();
-
-
-    class MyReceiver extends BroadcastReceiver {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            if (intent.getAction().equals("DESTROY")) finish();
-        }
-    }
 
 
     @Override
@@ -73,8 +64,6 @@ public class NewGame extends AppCompatActivity {
 
         if (Global.getButtonThemeDark()) applyDarkTheme();
         else applyLightTheme();
-
-        registerReceiver(receiver, new IntentFilter("DESTROY"));
 
         easy_board_btn = findViewById(R.id.easy_board_btn);
         medium_board_btn = findViewById(R.id.medium_board_btn);
@@ -90,8 +79,10 @@ public class NewGame extends AppCompatActivity {
         timeButtons_Row = findViewById(R.id.timeButtons_Row);
         mathButtons_row = findViewById(R.id.math_buttons_row);
 
+        //so the user can control the volume of the sounds
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
+        //if sound is off the buttonSoundID stays 0 and no sound will be played on button touch
         if (Settings.getSoundOn()) soundID = soundPool.load(this, R.raw.button_click_1, 1);
         if (!Settings.getForTimeOn()) {
             newGame_table.removeView(timeText_Row);

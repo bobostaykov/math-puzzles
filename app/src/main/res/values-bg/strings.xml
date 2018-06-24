@@ -32,8 +32,9 @@
     <string name="done">Готово</string>
     <string name="back_to_main">Меню</string>
     <string name="button_theme_label">Цвят на бутоните</string>
-    <string name="button_theme_light">Светъл</string>
-    <string name="button_theme_dark">Тъмен</string>
+    <string name="button_theme_light">светъл</string>
+    <string name="button_theme_dark">тъмен</string>
+    <string name="toast_language_changed">Избран език български</string>
     <string name="toast_sound_on">Звук включен</string>
     <string name="toast_sound_off">Звук изключен</string>
     <string name="toast_time_on">За време</string>
