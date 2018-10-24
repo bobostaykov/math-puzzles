@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.main;
 
 import android.content.Context;

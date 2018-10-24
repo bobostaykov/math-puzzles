@@ -1,10 +1,6 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.activity;
 
 import android.content.Intent;
-import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.GradientDrawable;
 import android.media.AudioManager;
 import android.media.SoundPool;
 import android.support.v7.app.AppCompatActivity;
@@ -13,7 +9,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TableLayout;
 import android.widget.TableRow;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.thejokerstudios.mathpuzzles.R;
@@ -24,25 +19,25 @@ import com.thejokerstudios.mathpuzzles.help.Global;
 public class NewGame extends AppCompatActivity {
 
     //referencing buttons created in the activity_new_game.xml file
-    private Button easy_board_btn;
-    private Button medium_board_btn;
-    private Button hard_board_btn;
-    private Button easy_time_btn;
-    private Button medium_time_btn;
-    private Button hard_time_btn;
-    private Button easy_math_btn;
-    private Button medium_math_btn;
-    private Button hard_math_btn;
+    private Button easy_board_btn,
+                   medium_board_btn,
+                   hard_board_btn,
+                   easy_time_btn,
+                   medium_time_btn,
+                   hard_time_btn,
+                   easy_math_btn,
+                   medium_math_btn,
+                   hard_math_btn;
 
-    private boolean easy_board_btn_chosen = false;
-    private boolean medium_board_btn_chosen = false;
-    private boolean hard_board_btn_chosen = false;
-    private boolean easy_time_btn_chosen = false;
-    private boolean medium_time_btn_chosen = false;
-    private boolean hard_time_btn_chosen = false;
-    private boolean easy_math_btn_chosen = false;
-    private boolean medium_math_btn_chosen = false;
-    private boolean hard_math_btn_chosen = false;
+    private boolean easy_board_btn_chosen = false,
+                    medium_board_btn_chosen = false,
+                    hard_board_btn_chosen = false,
+                    easy_time_btn_chosen = false,
+                    medium_time_btn_chosen = false,
+                    hard_time_btn_chosen = false,
+                    easy_math_btn_chosen = false,
+                    medium_math_btn_chosen = false,
+                    hard_math_btn_chosen = false;
 
     private SoundPool soundPool;
     private int soundID = 0;
@@ -323,16 +318,6 @@ public class NewGame extends AppCompatActivity {
         else hard_math_btn.setBackgroundResource(R.drawable.mybutton_light_chosen);
         hard_math_btn_chosen = true;
         AllLevels.setMath(Level.HARD);
-    }
-
-
-    //setting border to the button to be visible fro the user what level has been chosen
-    private Drawable createButtonBorder() {
-        GradientDrawable drawable = new GradientDrawable();
-        drawable.setShape(GradientDrawable.RECTANGLE);
-        drawable.setStroke(5, Color.MAGENTA);
-        drawable.setColor(Color.WHITE);
-        return drawable;
     }
 
 

@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.activity;
 
 import android.content.Intent;
@@ -43,9 +42,8 @@ public class Game extends AppCompatActivity {
         //finding device screen size
         DisplayMetrics displayMetrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
-        int screenHeight = displayMetrics.heightPixels;
         int screenWidth = displayMetrics.widthPixels;
-        Global.setScreenSize(screenHeight, screenWidth);
+        Global.setScreenWidth(screenWidth);
 
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
@@ -54,7 +52,7 @@ public class Game extends AppCompatActivity {
             soundIdLose = soundPool.load(this, R.raw.lose_sound, 1);
         }
 
-        Global.setGameContext(this);
+        global.setGameContext(this);
 
         GridView game_board = findViewById(R.id.game_board);
         TextView moves_number = findViewById(R.id.moves_number);
@@ -74,16 +72,52 @@ public class Game extends AppCompatActivity {
             boardColumns = 5;
         }
 
-        //if boardColumns == 3 and time level == hard
-        int millisInFuture = 20*1000;
+        int millisInFuture = 0;
 
-        //time, depending on the board size
-        if (boardColumns == 4) millisInFuture *= 3;
-        if (boardColumns == 5) millisInFuture *= 9;
+        //setting time, depending on the board size and the time level chosen
+        switch (boardColumns) {
+            case 3:
+                switch (AllLevels.getTime()) {
+                    case EASY:
+                        millisInFuture = 90*1000;
+                        break;
+                    case MEDIUM:
+                        millisInFuture = 40*1000;
+                        break;
+                    case HARD:
+                        millisInFuture = 15*1000;
+                        break;
+                }
+                break;
 
-        //time, depending on the time level chosen
-        if (AllLevels.getTime() == Level.MEDIUM) millisInFuture *= 1.5;
-        if (AllLevels.getTime() == Level.EASY) millisInFuture *= 2;
+            case 4:
+                switch (AllLevels.getTime()) {
+                    case EASY:
+                        millisInFuture = 240*1000;
+                        break;
+                    case MEDIUM:
+                        millisInFuture = 120*1000;
+                        break;
+                    case HARD:
+                        millisInFuture = 45*1000;
+                        break;
+                }
+                break;
+
+            case 5:
+                switch (AllLevels.getTime()) {
+                    case EASY:
+                        millisInFuture = 540*1000;
+                        break;
+                    case MEDIUM:
+                        millisInFuture = 360*1000;
+                        break;
+                    case HARD:
+                        millisInFuture = 180*1000;
+                        break;
+                }
+                break;
+        }
 
         //converting the milis in minutes and seconds and showing them in the timer view
         timerView.setText(getString(R.string.timer_format,
@@ -127,7 +161,7 @@ public class Game extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
                         global.playSound(soundPool, soundIdButton);
-                        Global.setCurrentImageReal(Global.getCurrentImage());
+                        Global.setCurrentImageRealTag(Global.getCurrentImageTag());
                         restartActivity(game);
                     }
                 };
@@ -142,7 +176,7 @@ public class Game extends AppCompatActivity {
                 };
 
                 //creating a "time's up" dialog
-                Global.createDialog(R.string.timeUp_dialog_title,
+                global.createDialog(false, R.string.timeUp_dialog_title,
                                     getString(R.string.timeUp_dialog_text),
                                     R.string.main_menu, mainMenu,
                                     R.string.change_level, changeLevel,
@@ -172,8 +206,8 @@ public class Game extends AppCompatActivity {
     }
 
 
-    //entering fulcom.example.boris.mathpuzzleslscreen
-    private void hideNavStatBar() {
+    //entering fullscreen
+    public void hideNavStatBar() {
         View decorView = this.getWindow().getDecorView();
         int uiOptions = View.SYSTEM_UI_FLAG_LOW_PROFILE
                 | View.SYSTEM_UI_FLAG_FULLSCREEN
@@ -195,14 +229,12 @@ public class Game extends AppCompatActivity {
         game.startActivity(back);
     }
 
-
     public void restartActivity(Game game) {
         game.finish();
         Intent restart = new Intent(game, Game.class);
         game.startActivity(restart);
         overridePendingTransition(0,0);
     }
-
 
     public void back(Game game) {
         game.finish();
@@ -220,10 +252,9 @@ public class Game extends AppCompatActivity {
         game.startActivity(back);
     }
 
-
     public void restartActivity(View v) {
         global.playSound(soundPool, soundIdButton);
-        Global.setCurrentImageReal(Global.getCurrentImage());
+        Global.setCurrentImageRealTag(Global.getCurrentImageTag());
         timer.cancel();
         game.finish();
         Intent restart = new Intent(game, Game.class);
@@ -231,10 +262,19 @@ public class Game extends AppCompatActivity {
         overridePendingTransition(0,0);
     }
 
-
     public void back(View v) {
         global.playSound(soundPool, soundIdButton);
         finish();
+    }
+
+
+    public void info(View v) {
+        global.playSound(soundPool, soundIdButton);
+        global.createDialog(true, 0,
+                            getString(R.string.info_text),
+                            R.string.close_dialog, null,
+                            0, null,
+                            0, null);
     }
 
 
@@ -259,9 +299,4 @@ public class Game extends AppCompatActivity {
         button2.setBackgroundResource(R.drawable.mybutton_light);
     }
 
-
-
-    //TODO: create the math problems (images)
-    //TODO: fix easy, medium and hard time length
-    //TODO: final inspection - remove unused methods (organize the rest) and imports, review warnings and write comments
 }

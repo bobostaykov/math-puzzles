@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.datatype;
 
 //a class to help count the inversions in the board pieces presented as an array

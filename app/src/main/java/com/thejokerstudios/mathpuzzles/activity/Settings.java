@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.activity;
 
 import android.content.Context;
@@ -20,7 +19,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.TextView;

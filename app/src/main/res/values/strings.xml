@@ -33,6 +33,7 @@
     <string name="youWon_dialog_text_no_time">Congrats! Moves: %1d</string>
     <string name="change_level">Change Level</string>
     <string name="try_another">Try another</string>
+    <string name="info_text">Solve the puzzle! Tap on a piece to move it to the blank space. You can move more than one piece at a time. You have an option in the settings to play without time. Have fun!</string>
 
     <string name="title_activity_settings" translatable="false">Settings</string>
     <string name="lang_label">Language:</string>
@@ -65,5 +66,7 @@
     <string name="key_sound" translatable="false">sound</string>
     <string name="key_time" translatable="false">time</string>
     <string name="key_theme" translatable="false">theme</string>
+    <string name="close_dialog">Close</string>
+    <string name="restart_button">Restart</string>
 
 </resources>

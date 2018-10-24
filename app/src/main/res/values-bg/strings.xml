@@ -23,8 +23,8 @@
     <string name="you_won">Ти спечели!</string>
     <string name="change_level">Промени нивото</string>
     <string name="try_another">Пробвай друго</string>
-    <string name="youWon_dialog_text_with_time">Честито! Ходове: %1d,\nВреме %02d:%02d</string>
-    <string name="youWon_dialog_text_no_time">Честито! Ходове: %1d</string>
+    <string name="youWon_dialog_text_with_time">Поздравления! Ходове: %1d,\nВреме %02d:%02d</string>
+    <string name="youWon_dialog_text_no_time">Поздравления! Ходове: %1d</string>
     <string name="exit">Излез</string>
     <string name="sound_label">Звук</string>
     <string name="time">Време:</string>
@@ -42,4 +42,7 @@
     <string name="toast_theme_dark">Цвят на бутоните тъмен</string>
     <string name="toast_theme_light">Цвят на бутоните светъл</string>
     <string name="toast_rate">Оцени играта</string>
+    <string name="info_text">Нареди пъзела! Докосни плочка, за да я придвижиш до празното поле. Можеш да местиш и по няколко плочки наведнъж. В настройките имаш опцията да изключиш играта за време. Приятна игра!</string>
+    <string name="close_dialog">Затвори</string>
+    <string name="restart_button">Рестартирай</string>
 </resources>

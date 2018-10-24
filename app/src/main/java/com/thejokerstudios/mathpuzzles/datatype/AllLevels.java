@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.datatype;
 
 //a class to save all three chosen game levels

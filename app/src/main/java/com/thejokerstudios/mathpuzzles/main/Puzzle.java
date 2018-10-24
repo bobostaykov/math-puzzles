@@ -1,16 +1,17 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.main;
 
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.media.SoundPool;
 import android.os.CountDownTimer;
+import android.os.Handler;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.thejokerstudios.mathpuzzles.R;
 import com.thejokerstudios.mathpuzzles.activity.Game;
+import com.thejokerstudios.mathpuzzles.activity.MainMenu;
 import com.thejokerstudios.mathpuzzles.activity.Settings;
 import com.thejokerstudios.mathpuzzles.datatype.AllLevels;
 import com.thejokerstudios.mathpuzzles.datatype.Inversions;
@@ -21,6 +22,7 @@ import com.thejokerstudios.mathpuzzles.help.Global;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collections;
+import java.util.Locale;
 import java.util.Random;
 
 public class Puzzle {
@@ -37,30 +39,32 @@ public class Puzzle {
     private SoundPool soundPool;
 
 
-    public Puzzle(SoundPool soundPool) {
+    Puzzle(SoundPool soundPool) {
         boardColumns = Global.getBoardColumns();
 
         populateImageLists();
         ImageView image;
 
-        //in order to load the same image when user chooses "try again"
-        if (Global.getCurrentImageReal() == null)
+        //in order to load the same image when user chooses "restart"
+        if (Global.getCurrentImageRealTag() == 0)
             image = chooseImage();
         else {
-            image = Global.getCurrentImageReal();
-            Global.setCurrentImageReal(null);
+            image = new ImageView(Global.getContext());
+            image.setImageResource(Global.getCurrentImageRealTag());
+            image.setTag(Global.getCurrentImageRealTag());
+            Global.setCurrentImageRealTag(0);
         }
 
-        Global.setCurrentImage(image);
+        Global.setCurrentImageTag((int)image.getTag());
         splitImage(image);
 
         shuffleItems();
         movesCount = 0;
 
         this.soundPool = soundPool;
-        soundIdSlide = soundPool.load(Global.getContext(), R.raw.slide_sound_2, 2);
-        soundIdWin = soundPool.load(Global.getContext(), R.raw.win_sound, 1);
-        soundIdButton = soundPool.load(Global.getContext(), R.raw.button_click_1, 1);
+        soundIdSlide = this.soundPool.load(Global.getContext(), R.raw.slide_sound_2, 2);
+        soundIdWin = this.soundPool.load(Global.getContext(), R.raw.win_sound, 1);
+        soundIdButton = this.soundPool.load(Global.getContext(), R.raw.button_click_1, 1);
     }
 
 
@@ -72,15 +76,15 @@ public class Puzzle {
 
         for (int i = 1; i <= 15; i++) {
             resourceIdEasy = Global.getGlobalResources().getIdentifier("easy" + i, "drawable", Global.getGlobalPackageName());
-            ImageView easyImage = new ImageView(Global.getContext());
+            //ImageView easyImage = new ImageView(Global.getContext());
             easyImages.add(resourceIdEasy);
 
             resourceIdMedium = Global.getGlobalResources().getIdentifier("medium" + i, "drawable", Global.getGlobalPackageName());
-            ImageView mediumImage = new ImageView(Global.getContext());
+            //ImageView mediumImage = new ImageView(Global.getContext());
             mediumImages.add(resourceIdMedium);
 
             resourceIdHard = Global.getGlobalResources().getIdentifier("hard" + i, "drawable", Global.getGlobalPackageName());
-            ImageView hardImage = new ImageView(Global.getContext());
+            //ImageView hardImage = new ImageView(Global.getContext());
             hardImages.add(resourceIdHard);
         }
     }
@@ -102,6 +106,7 @@ public class Puzzle {
 
         ImageView image = new ImageView(Global.getContext());
         image.setImageResource(listToChooseFrom.get(randomNumber));
+        image.setTag(listToChooseFrom.get(randomNumber));
 
         return image;
     }
@@ -141,7 +146,7 @@ public class Puzzle {
                 curr.setCurrentIndex(index);
                 index++;
             }
-            blankPosition = getItemPos(null);
+            blankPosition = getBlankItemPos();
         } while (isImpossible(items));
     }
 
@@ -265,14 +270,29 @@ public class Puzzle {
 
 
     //moving board piece(s) after the user touches one
-    public void moveItemGroup(PuzzleItem item, TextView movesNumber, CountDownTimer timer, final Game game) {
+    public void moveItemGroup(PuzzleItem item, final TextView movesNumber, CountDownTimer timer, final Game game) {
 
         //clicked item
         int index = item.getCurrentIndex();
         int newMoves = 0;
         final PuzzleItem itemCopy = item;
 
-        if (Settings.getSoundOn() && rowColumn(itemCopy) != 0) global.playSound(soundPool, soundIdSlide);
+        if (Settings.getSoundOn() && rowColumn(itemCopy) != 0)
+            global.playSound(soundPool, soundIdSlide);
+
+        //releasing SoundPool resources and creating a new SoundPool object every 500 button presses to avoid running out of memory
+        if (Global.getTotalSounds() % 500 == 0) {
+            //reloading sound with delay, otherwise the playing sound (two lines of code above) gets interrupted (slide sound length = 400 milliseconds)
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    soundPool = MainMenu.reloadSound(soundPool);
+                    soundIdSlide = soundPool.load(Global.getContext(), R.raw.slide_sound_2, 2);
+                    soundIdWin = soundPool.load(Global.getContext(), R.raw.win_sound, 1);
+                    soundIdButton = soundPool.load(Global.getContext(), R.raw.button_click_1, 1);
+                }
+            }, 400);
+        }
 
         switch (rowColumn(item)) {
             case 1: {
@@ -337,19 +357,21 @@ public class Puzzle {
             timer.start();
             timerStarted = true;
         }
-        movesNumber.setText("" + movesCount);
+        movesNumber.setText(String.valueOf(movesCount));
 
 
         if (isSolved()) {
 
-            if (Settings.getSoundOn()) global.playSound(soundPool, soundIdWin);
+            if (Settings.getSoundOn())
+                global.playSound(soundPool, soundIdWin);
 
             timer.cancel();
 
             View.OnClickListener mainMenu = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Settings.getSoundOn()) global.playSound(soundPool, soundIdButton);
+                    if (Settings.getSoundOn())
+                        global.playSound(soundPool, soundIdButton);
                     gameObj.backToMain(game);
                 }
             };
@@ -357,7 +379,8 @@ public class Puzzle {
             View.OnClickListener changeLevel = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Settings.getSoundOn()) global.playSound(soundPool, soundIdButton);
+                    if (Settings.getSoundOn())
+                        global.playSound(soundPool, soundIdButton);
                     gameObj.back(game);
                 }
             };
@@ -365,17 +388,33 @@ public class Puzzle {
             View.OnClickListener tryAnother = new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    if (Settings.getSoundOn()) global.playSound(soundPool, soundIdButton);
+                    if (Settings.getSoundOn())
+                        global.playSound(soundPool, soundIdButton);
                     gameObj.restartActivity(game);
                 }
             };
 
-            String textToShow;
-            if (Settings.getForTimeOn()) textToShow = Global.getContext().getString(R.string.youWon_dialog_text_with_time, movesCount, minutesPassed, secondsPassed);
-            else textToShow = Global.getContext().getString(R.string.youWon_dialog_text_no_time, movesCount);
+            String youWon_time, youWon_noTime, textToShow;
+
+            // otherwise the textToShow is always in english no matter the current locale, a bug I suppose...
+            if (Global.getLocale().equalsIgnoreCase("de")) {
+                youWon_time = "Gut gemacht! Züge: %1d,\nZeit %02d:%02d";
+                youWon_noTime = "Gut gemacht! Züge: %1d";
+            } else if (Global.getLocale().equalsIgnoreCase("bg")) {
+                youWon_time = "Поздравления! Ходове: %1d,\nВреме %02d:%02d";
+                youWon_noTime = "Поздравления! Ходове: %1d";
+            } else {
+                youWon_time = "Congrats! Moves: %1d,\nTime %02d:%02d";
+                youWon_noTime = "Congrats! Moves: %1d";
+            }
+
+            if (Settings.getForTimeOn())
+                textToShow = String.format(new Locale(Global.getLocale()), youWon_time, movesCount, minutesPassed, secondsPassed);
+            else
+                textToShow = String.format(new Locale(Global.getLocale()), youWon_noTime, movesCount);
 
             //creating the "you won" dialog
-            Global.createDialog(R.string.you_won,
+            global.createDialog(false, R.string.you_won,
                                 textToShow,
                                 R.string.main_menu, mainMenu,
                                 R.string.change_level, changeLevel,
@@ -384,16 +423,6 @@ public class Puzzle {
 
         }
 
-    }
-
-
-    public static void setMinutesPassed(int minutes) {
-        minutesPassed = minutes;
-    }
-
-
-    public static void setSecondsPassed(int seconds) {
-        secondsPassed = seconds;
     }
 
 
@@ -432,9 +461,10 @@ public class Puzzle {
     }
 
 
-    private int getItemPos(Bitmap bitmap) {
+    private int getBlankItemPos() {
         for (PuzzleItem curr : items) {
-            if (curr.getBitmap() == bitmap) return curr.getCurrentIndex();
+            if (curr.getBitmap() == null)
+                return curr.getCurrentIndex();
         }
         return -1;
     }
@@ -445,6 +475,16 @@ public class Puzzle {
         for (PuzzleItem curr : items)
             if (curr.getSolvedIndex() != curr.getCurrentIndex()) return false;
         return true;
+    }
+
+
+    public static void setMinutesPassed(int minutes) {
+        minutesPassed = minutes;
+    }
+
+
+    public static void setSecondsPassed(int seconds) {
+        secondsPassed = seconds;
     }
 
 }

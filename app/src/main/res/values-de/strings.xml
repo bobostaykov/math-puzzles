@@ -42,4 +42,7 @@
     <string name="toast_theme_dark">Druckknopffarbe dunkel</string>
     <string name="toast_theme_light">Druckknopffarbe hell</string>
     <string name="toast_rate">App bewerten</string>
+    <string name="info_text">Ordne das Puzzle! Berühr ein Teil des Puzzels, um es auf den leeren Platz zu bewegen. Du kannst auch mehrere Teile auf einmal bewegen. Du hast die Möglichkeit in den Einstellungen die Zeit auszuschalten. Viel Spaß!</string>
+    <string name="close_dialog">Schließen</string>
+    <string name="restart_button">Neustart</string>
 </resources>

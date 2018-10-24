@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.datatype;
 
 import android.graphics.Bitmap;

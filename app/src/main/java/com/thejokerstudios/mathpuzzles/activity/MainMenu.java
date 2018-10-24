@@ -1,4 +1,3 @@
-//everything ok
 package com.thejokerstudios.mathpuzzles.activity;
 
 import android.content.Intent;
@@ -22,8 +21,8 @@ import java.util.Locale;
 public class MainMenu extends AppCompatActivity {
 
     private static boolean localeChanged = false, soundSettingChanged = false, themeChanged = false, firstTime = true;
-    private SoundPool soundPool;
-    private int buttonSoundID = 0;
+    private static SoundPool soundPool;
+    private static int buttonSoundID = 0;
     private Global global = new Global();
 
     @Override
@@ -42,7 +41,8 @@ public class MainMenu extends AppCompatActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
         //if sound is off the buttonSoundID stays 0 and no sound will be played on button touch
-        if (Settings.getSoundOn()) buttonSoundID = soundPool.load(this, R.raw.button_click_1, 1);
+        if (Settings.getSoundOn())
+            buttonSoundID = soundPool.load(this, R.raw.button_click_1, 1);
 
         if (Global.getButtonThemeDark()) applyDarkTheme();
         else applyLightTheme();
@@ -162,6 +162,14 @@ public class MainMenu extends AppCompatActivity {
     }
 
 
+    //reloading SoundPool object to avoid running out of memory
+    public static SoundPool reloadSound(SoundPool soundPool) {
+        soundPool.release();
+        soundPool = new SoundPool.Builder().setMaxStreams(5).build();
+        return soundPool;
+    }
+
+
     //so the main screen restarts and the changes take effect
     public static void setLocaleChanged() {
         localeChanged = true;
@@ -180,4 +188,12 @@ public class MainMenu extends AppCompatActivity {
     }
 
 
+    public static SoundPool getSoundPool() {
+        return soundPool;
+    }
+
+
+    public static int getButtonSoundID() {
+        return buttonSoundID;
+    }
 }
