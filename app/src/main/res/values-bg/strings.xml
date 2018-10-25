@@ -12,16 +12,13 @@
     <string name="moves_count">Ходове:</string>
     <string name="easy_button">Лесно</string>
     <string name="medium_button">Средно</string>
-    <string name="en_lang">английски</string>
-    <string name="de_lang">немски</string>
-    <string name="bg_lang">български</string>
     <string name="lang_label">Език:</string>
     <string name="timeUp_dialog_title">Времето изтече!</string>
     <string name="timeUp_dialog_text">Шанс&#8230;</string>
     <string name="main_menu">Меню</string>
     <string name="try_again">Опитай пак</string>
     <string name="you_won">Ти спечели!</string>
-    <string name="change_level">Промени нивото</string>
+    <string name="change_level">Пром. нив.</string>
     <string name="try_another">Пробвай друго</string>
     <string name="youWon_dialog_text_with_time">Поздравления! Ходове: %1d,\nВреме %02d:%02d</string>
     <string name="youWon_dialog_text_no_time">Поздравления! Ходове: %1d</string>

@@ -37,9 +37,9 @@
 
     <string name="title_activity_settings" translatable="false">Settings</string>
     <string name="lang_label">Language:</string>
-    <string name="en_lang">English</string>
-    <string name="de_lang">German</string>
-    <string name="bg_lang">Bulgarian</string>
+    <string name="en_lang" translatable="false">english</string>
+    <string name="de_lang" translatable="false">Deutsch</string>
+    <string name="bg_lang" translatable="false">български</string>
     <string name="sound_label">Sound</string>
     <string name="forTime_label">Play for time</string>
     <string name="button_theme_label">Button theme</string>

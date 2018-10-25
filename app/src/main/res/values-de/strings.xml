@@ -12,9 +12,6 @@
     <string name="choose_level">Bitte Niveau wählen</string>
     <string name="moves_count">Züge:</string>
     <string name="medium_button">Mäsig</string>
-    <string name="en_lang">Englisch</string>
-    <string name="de_lang">Deutsch</string>
-    <string name="bg_lang">Bulgarisch</string>
     <string name="lang_label">Sprache:</string>
     <string name="main_menu">Hauptmenü</string>
     <string name="timeUp_dialog_title">Die Zeit ist abgelaufen!</string>
