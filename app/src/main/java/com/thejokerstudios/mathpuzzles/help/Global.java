@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.thejokerstudios.mathpuzzles.R;
+import com.thejokerstudios.mathpuzzles.activity.Game;
 import com.thejokerstudios.mathpuzzles.activity.MainMenu;
 import com.thejokerstudios.mathpuzzles.activity.Settings;
 
@@ -47,6 +48,15 @@ public class Global extends Application {
     public void createDialog(boolean dismiss, int dialogTitle, String dialogMessage, int negativeButton, View.OnClickListener whatToDoWhenNeg, int neutralButton, View.OnClickListener whatToDoWhenNeut, int positiveButton, View.OnClickListener whatToDoWhenPos) {
 
         final Dialog dialog = new Dialog(gameContext);
+
+        //to prevent the status bar from showing when the dialog appears
+        Objects.requireNonNull(dialog.getWindow()).getDecorView().setSystemUiVisibility(View.SYSTEM_UI_FLAG_LOW_PROFILE
+                                                                                        | View.SYSTEM_UI_FLAG_FULLSCREEN
+                                                                                        | View.SYSTEM_UI_FLAG_LAYOUT_STABLE
+                                                                                        | View.SYSTEM_UI_FLAG_IMMERSIVE_STICKY
+                                                                                        | View.SYSTEM_UI_FLAG_LAYOUT_HIDE_NAVIGATION
+                                                                                        | View.SYSTEM_UI_FLAG_HIDE_NAVIGATION);
+
         dialog.setContentView(R.layout.dialog_layout);
         dialog.setCancelable(false);
         dialog.setCanceledOnTouchOutside(false);
@@ -101,6 +111,7 @@ public class Global extends Application {
                     if (Settings.getSoundOn())
                         playSound(MainMenu.getSoundPool(), MainMenu.getButtonSoundID());
                     dialog.dismiss();
+                    ((Game) gameContext).hideNavStatBar();
                 }
             });
         } else {

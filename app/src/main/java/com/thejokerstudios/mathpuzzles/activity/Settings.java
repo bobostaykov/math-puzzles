@@ -15,6 +15,7 @@ import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -28,6 +29,7 @@ import com.thejokerstudios.mathpuzzles.R;
 import com.thejokerstudios.mathpuzzles.help.Global;
 
 import java.util.Locale;
+import java.util.Objects;
 
 public class Settings extends AppCompatActivity {
 
@@ -145,6 +147,7 @@ public class Settings extends AppCompatActivity {
         languageSpinner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 v.performClick();
                 isLangSpinnerTouched = true;
                 return false;
@@ -180,7 +183,7 @@ public class Settings extends AppCompatActivity {
         });
 
 
-        Spinner buttonThemeSpinner = findViewById(R.id.button_theme_spinner);
+        final Spinner buttonThemeSpinner = findViewById(R.id.button_theme_spinner);
 
         String dark = getString(R.string.button_theme_dark);
         String light = getString(R.string.button_theme_light);
@@ -195,6 +198,7 @@ public class Settings extends AppCompatActivity {
         buttonThemeSpinner.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
+                getWindow().addFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN);
                 v.performClick();
                 isThemeSpinnerTouched = true;
                 return false;

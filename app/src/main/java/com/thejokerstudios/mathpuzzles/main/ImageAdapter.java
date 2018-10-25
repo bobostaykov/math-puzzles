@@ -25,7 +25,7 @@ public class ImageAdapter extends BaseAdapter {
     private Game game;
     private boolean zeroOnce = false;
 
-    public ImageAdapter(Context context, GridView game_board, int columns, TextView movesNumber, CountDownTimer timer, Game game, SoundPool soundPool) {
+    public ImageAdapter(Context context, GridView game_board, int columns, TextView movesNumber, CountDownTimer timer, Game game, SoundPool soundPool, Global global) {
         mContext = context;
         this.game_board = game_board;
         this.movesNumber = movesNumber;
@@ -33,6 +33,7 @@ public class ImageAdapter extends BaseAdapter {
         this.game = game;
         Global.setBoardColumns(columns);
         puzzle = new Puzzle(soundPool);
+        puzzle.setGlobalObj(global);
     }
 
     public int getCount() {

@@ -32,12 +32,10 @@ public class Puzzle {
     private ArrayList<Integer> easyImages = new ArrayList<>(),
                                mediumImages = new ArrayList<>(),
                                hardImages = new ArrayList<>();
-    private Game gameObj = new Game();
-    private Global global = new Global();
+    private Global global;
     private boolean timerStarted = false;
     private static int minutesPassed, secondsPassed;
     private SoundPool soundPool;
-
 
     Puzzle(SoundPool soundPool) {
         boardColumns = Global.getBoardColumns();
@@ -372,7 +370,7 @@ public class Puzzle {
                 public void onClick(View v) {
                     if (Settings.getSoundOn())
                         global.playSound(soundPool, soundIdButton);
-                    gameObj.backToMain(game);
+                    game.backToMain(game);
                 }
             };
 
@@ -381,7 +379,7 @@ public class Puzzle {
                 public void onClick(View v) {
                     if (Settings.getSoundOn())
                         global.playSound(soundPool, soundIdButton);
-                    gameObj.back(game);
+                    game.back(game);
                 }
             };
 
@@ -390,7 +388,7 @@ public class Puzzle {
                 public void onClick(View v) {
                     if (Settings.getSoundOn())
                         global.playSound(soundPool, soundIdButton);
-                    gameObj.restartActivity(game);
+                    game.restartActivity(game);
                 }
             };
 
@@ -485,6 +483,11 @@ public class Puzzle {
 
     public static void setSecondsPassed(int seconds) {
         secondsPassed = seconds;
+    }
+
+
+    public void setGlobalObj(Global global) {
+        this.global = global;
     }
 
 }

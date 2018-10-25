@@ -75,48 +75,50 @@ public class Game extends AppCompatActivity {
         int millisInFuture = 0;
 
         //setting time, depending on the board size and the time level chosen
-        switch (boardColumns) {
-            case 3:
-                switch (AllLevels.getTime()) {
-                    case EASY:
-                        millisInFuture = 90*1000;
-                        break;
-                    case MEDIUM:
-                        millisInFuture = 40*1000;
-                        break;
-                    case HARD:
-                        millisInFuture = 15*1000;
-                        break;
-                }
-                break;
+        if (Settings.getForTimeOn()) {
+            switch (boardColumns) {
+                case 3:
+                    switch (AllLevels.getTime()) {
+                        case EASY:
+                            millisInFuture = 90 * 1000;
+                            break;
+                        case MEDIUM:
+                            millisInFuture = 40 * 1000;
+                            break;
+                        case HARD:
+                            millisInFuture = 15 * 1000;
+                            break;
+                    }
+                    break;
 
-            case 4:
-                switch (AllLevels.getTime()) {
-                    case EASY:
-                        millisInFuture = 240*1000;
-                        break;
-                    case MEDIUM:
-                        millisInFuture = 120*1000;
-                        break;
-                    case HARD:
-                        millisInFuture = 45*1000;
-                        break;
-                }
-                break;
+                case 4:
+                    switch (AllLevels.getTime()) {
+                        case EASY:
+                            millisInFuture = 240 * 1000;
+                            break;
+                        case MEDIUM:
+                            millisInFuture = 120 * 1000;
+                            break;
+                        case HARD:
+                            millisInFuture = 45 * 1000;
+                            break;
+                    }
+                    break;
 
-            case 5:
-                switch (AllLevels.getTime()) {
-                    case EASY:
-                        millisInFuture = 540*1000;
-                        break;
-                    case MEDIUM:
-                        millisInFuture = 360*1000;
-                        break;
-                    case HARD:
-                        millisInFuture = 180*1000;
-                        break;
-                }
-                break;
+                case 5:
+                    switch (AllLevels.getTime()) {
+                        case EASY:
+                            millisInFuture = 540 * 1000;
+                            break;
+                        case MEDIUM:
+                            millisInFuture = 360 * 1000;
+                            break;
+                        case HARD:
+                            millisInFuture = 180 * 1000;
+                            break;
+                    }
+                    break;
+            }
         }
 
         //converting the milis in minutes and seconds and showing them in the timer view
@@ -186,7 +188,7 @@ public class Game extends AppCompatActivity {
 
         };
 
-        game_board.setAdapter(new ImageAdapter(this, game_board, boardColumns, moves_number, timer, this, soundPool));
+        game_board.setAdapter(new ImageAdapter(this, game_board, boardColumns, moves_number, timer, this, soundPool, global));
 
     }
 
