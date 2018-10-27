@@ -42,7 +42,7 @@ public class MainMenu extends AppCompatActivity {
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
         //if sound is off the buttonSoundID stays 0 and no sound will be played on button touch
         if (Settings.getSoundOn())
-            buttonSoundID = soundPool.load(this, R.raw.button_click_1, 1);
+            buttonSoundID = soundPool.load(this, R.raw.button_click, 1);
 
         if (Global.getButtonThemeDark()) applyDarkTheme();
         else applyLightTheme();

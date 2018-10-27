@@ -83,7 +83,7 @@ public class Settings extends AppCompatActivity {
         Switch sound_switch = findViewById(R.id.sound_switch);
         if (sound_on) {
             sound_switch.setChecked(true);
-            buttonSoundID = soundPool.load(this, R.raw.button_click_1, 1);
+            buttonSoundID = soundPool.load(this, R.raw.button_click, 1);
         }
         sound_switch.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
@@ -92,7 +92,7 @@ public class Settings extends AppCompatActivity {
                 if (isChecked) {
                     sound_on = true;
                     Toast.makeText(Settings.this, R.string.toast_sound_on, Toast.LENGTH_SHORT).show();
-                    buttonSoundID = soundPool.load(Settings.this, R.raw.button_click_1, 1);
+                    buttonSoundID = soundPool.load(Settings.this, R.raw.button_click, 1);
                 } else {
                     sound_on = false;
                     Toast.makeText(Settings.this, R.string.toast_sound_off, Toast.LENGTH_SHORT).show();

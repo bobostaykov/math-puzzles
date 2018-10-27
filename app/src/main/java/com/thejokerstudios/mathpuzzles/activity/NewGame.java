@@ -71,7 +71,7 @@ public class NewGame extends AppCompatActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
         //if sound is off the buttonSoundID stays 0 and no sound will be played on button touch
-        if (Settings.getSoundOn()) soundID = soundPool.load(this, R.raw.button_click_1, 1);
+        if (Settings.getSoundOn()) soundID = soundPool.load(this, R.raw.button_click, 1);
         //if the user chose not to play for time, the NewGame screen is changed accordingly
         if (!Settings.getForTimeOn()) {
             newGame_table.removeView(timeText_Row);

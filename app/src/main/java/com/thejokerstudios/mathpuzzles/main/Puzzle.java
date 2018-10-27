@@ -60,9 +60,9 @@ public class Puzzle {
         movesCount = 0;
 
         this.soundPool = soundPool;
-        soundIdSlide = this.soundPool.load(Global.getContext(), R.raw.slide_sound_2, 2);
+        soundIdSlide = this.soundPool.load(Global.getContext(), R.raw.slide_sound, 2);
         soundIdWin = this.soundPool.load(Global.getContext(), R.raw.win_sound, 1);
-        soundIdButton = this.soundPool.load(Global.getContext(), R.raw.button_click_1, 1);
+        soundIdButton = this.soundPool.load(Global.getContext(), R.raw.button_click, 1);
     }
 
 
@@ -285,9 +285,9 @@ public class Puzzle {
                 @Override
                 public void run() {
                     soundPool = MainMenu.reloadSound(soundPool);
-                    soundIdSlide = soundPool.load(Global.getContext(), R.raw.slide_sound_2, 2);
+                    soundIdSlide = soundPool.load(Global.getContext(), R.raw.slide_sound, 2);
                     soundIdWin = soundPool.load(Global.getContext(), R.raw.win_sound, 1);
-                    soundIdButton = soundPool.load(Global.getContext(), R.raw.button_click_1, 1);
+                    soundIdButton = soundPool.load(Global.getContext(), R.raw.button_click, 1);
                 }
             }, 400);
         }

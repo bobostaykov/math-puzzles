@@ -48,7 +48,7 @@ public class Game extends AppCompatActivity {
         setVolumeControlStream(AudioManager.STREAM_MUSIC);
         soundPool = new SoundPool.Builder().setMaxStreams(5).build();
         if (Settings.getSoundOn()) {
-            soundIdButton = soundPool.load(this, R.raw.button_click_1, 1);
+            soundIdButton = soundPool.load(this, R.raw.button_click, 1);
             soundIdLose = soundPool.load(this, R.raw.lose_sound, 1);
         }
 
