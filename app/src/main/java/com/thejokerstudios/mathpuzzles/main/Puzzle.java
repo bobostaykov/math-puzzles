@@ -124,6 +124,7 @@ public class Puzzle {
             xCoord = 0;
             for (int y = 0; y < boardColumns; y++){
                 Bitmap b = Bitmap.createBitmap(scaledBitmap, xCoord, yCoord, pieceWidth, pieceHeight);
+                //leaving the last place empty
                 if (index != boardColumns*boardColumns - 1) items.add(new PuzzleItem(b, index));
                 else items.add(new PuzzleItem(null, index));
                 xCoord += pieceWidth;

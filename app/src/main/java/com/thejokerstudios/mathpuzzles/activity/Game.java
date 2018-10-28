@@ -246,13 +246,13 @@ public class Game extends AppCompatActivity {
 
     //backToMain, restartActivity and back methods to use in the graphical designer
 
-    public void backToMain(View v) {
-        global.playSound(soundPool, soundIdButton);
-        game.finish();
-        Intent back = new Intent(game, MainMenu.class);
-        back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-        game.startActivity(back);
-    }
+//    public void backToMain(View v) {
+//        global.playSound(soundPool, soundIdButton);
+//        game.finish();
+//        Intent back = new Intent(game, MainMenu.class);
+//        back.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+//        game.startActivity(back);
+//    }
 
     public void restartActivity(View v) {
         global.playSound(soundPool, soundIdButton);
