@@ -92,7 +92,10 @@ public class Puzzle {
     private ImageView chooseImage() {
         ArrayList<Integer> listToChooseFrom;
 
-        if (AllLevels.getMath() == Level.EASY)
+        //if all levels are set to "EASY" only pics with 3 rows are chosen, otherwise pics with any number of rows
+        if (AllLevels.getMath() == Level.EASY && AllLevels.getBoard() == Level.EASY && AllLevels.getTime() == Level.EASY)
+            listToChooseFrom = new ArrayList<>(easyImages.subList(0,5));
+        else if (AllLevels.getMath() == Level.EASY)
             listToChooseFrom = easyImages;
         else if (AllLevels.getMath() == Level.MEDIUM)
             listToChooseFrom = mediumImages;
