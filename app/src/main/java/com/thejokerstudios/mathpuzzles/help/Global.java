@@ -25,7 +25,7 @@ import java.util.Objects;
 public class Global extends Application {
 
     private static Application instance;
-    private static int boardColumns, screenWidth, totalSounds = 0;
+    private static int boardColumns = 3, screenWidth, totalSounds = 0;
     private static boolean buttonThemeDark;
     private static String locale;
     /*

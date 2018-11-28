@@ -27,7 +27,7 @@ public class Game extends AppCompatActivity {
     private CountDownTimer timer;
     private Game game = this;
     private SoundPool soundPool;
-    private int boardColumns, timePassed = 0, soundIdButton = 0, soundIdLose = 0;
+    private int boardColumns = 3, timePassed = 0, soundIdButton = 0, soundIdLose = 0;
     private Global global = new Global();
 
     @Override
@@ -121,7 +121,7 @@ public class Game extends AppCompatActivity {
             }
         }
 
-        //converting the milis in minutes and seconds and showing them in the timer view
+        //converting the millis in minutes and seconds and showing them in the timer view
         timerView.setText(getString(R.string.timer_format,
                 TimeUnit.MILLISECONDS.toMinutes(millisInFuture),
                 TimeUnit.MILLISECONDS.toSeconds(millisInFuture) - TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisInFuture))));

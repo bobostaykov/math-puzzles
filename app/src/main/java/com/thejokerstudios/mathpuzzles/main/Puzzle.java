@@ -27,7 +27,7 @@ import java.util.Random;
 
 public class Puzzle {
 
-    private int blankPosition, boardColumns, movesCount, soundIdSlide, soundIdWin, soundIdButton;
+    private int blankPosition, boardColumns = 3, movesCount, soundIdSlide, soundIdWin, soundIdButton;
     private ArrayList<PuzzleItem> items = new ArrayList<>();
     private ArrayList<Integer> easyImages = new ArrayList<>(),
                                mediumImages = new ArrayList<>(),
